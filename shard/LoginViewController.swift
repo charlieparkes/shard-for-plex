@@ -9,18 +9,17 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    //User(u: "luxprimus",p: "Puppies&$w33t$")
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let user = User(u: "luxprimus",p: "Puppies&$w33t$")
-
-        // Do any additional setup after loading the view.
+        User.sharedInstance.login("luxprimus", p: "Puppies&$w33t$")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     /*

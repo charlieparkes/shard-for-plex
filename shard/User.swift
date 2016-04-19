@@ -6,35 +6,60 @@
 //  Copyright © 2016 Charlie Mathews. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     
+    static var sharedInstance : User = User()
+    
     let PLEX_signin : String = "https://plex.tv/users/sign_in.json"
     
-    let uuid : String       = NSUUID().UUIDString
-    let product : String    = "Shard for iOS"
+    let product : String    = "Shard"
     let version : String    = "0.1"
     
-    dynamic var token : String
+    let defaults : NSUserDefaults = NSUserDefaults() //NSUserDefaults.standardUserDefaults()
+    let defaults_token_key : String = "shard_token"
+    let defaults_username_key : String = "shard_username"
     
-    override init () {
-        token = ""
+    dynamic var loggedin : Bool
+    dynamic var username = ""
+    dynamic var token = ""
+    dynamic var authentication_token : String {
+        get {
+            return token
+        }
+        set {
+            print("Set token \(newValue)")
+            token = newValue
+            defaults.setObject(newValue, forKey: defaults_token_key)
+        }
     }
     
-    init(t : String) {
-        token = t
-    }
-    
-    init(u : String, p : String) {
-        token = ""
+    private override init () {
+        loggedin = false
         
         super.init()
         
-        login(u, p: p)
+        if let t : String = defaults.stringForKey(defaults_token_key) {
+            print("We have a stored user token.")
+            authentication_token = t
+        }
+        if let u : String = defaults.stringForKey(defaults_username_key) {
+            print("We have a stored username.")
+            username = u
+        }
+    }
+    
+    func checkToken() {
+        
     }
     
     func login(u : String, p : String) {
+        loginRequest(u, p: p)
+    }
+    
+    func loginRequest(u : String, p : String) {
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
@@ -46,11 +71,24 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         print("Attempting login. \"\(authString)\"")
         
         config.HTTPAdditionalHeaders = ["Authorization" : authString,
-                                        "X-Plex-Client-Identifier" : uuid,
+                                        "X-Plex-Platform" : "iOS",
+                                        "X-Plex-Platform-Version" : UIDevice.currentDevice().systemVersion,
+                                        "X-Plex-Device" : UIDevice.currentDevice().model,
+                                        "X-Plex-Device-Name" : UIDevice.currentDevice().name,
+                                        "X-Plex-Client-Identifier" : NSUUID().UUIDString,
                                         "X-Plex-Product" : product,
                                         "X-Plex-Version" : version]
+        
+        print(config.HTTPAdditionalHeaders)
+        
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
-        let task = session.downloadTaskWithURL(NSURL(string: PLEX_signin)!)
+        
+        //let task = session.downloadTaskWithURL(NSURL(string: PLEX_signin)!)
+        //task.resume()
+        
+        let request = NSMutableURLRequest(URL: NSURL(string: PLEX_signin)!)
+        request.HTTPMethod = "POST"
+        let task = session.downloadTaskWithRequest(request)
         task.resume()
     }
     
@@ -75,6 +113,30 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     }
     
     func processResponse(data : NSData) {
-        print(data)
+        do {
+            
+            let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! Dictionary<String, AnyObject>
+            
+            for (k, v) in jsonData {
+                if k == "user" {
+                    
+                    for (k,v) in jsonData["user"] as! Dictionary<String, AnyObject> {
+                        
+                        if self.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                            self.setValue(v, forKey: k)
+                        }
+                    }
+                    
+                } else if k == "error" {
+                    let msg = v as! String
+                    print(msg)
+                }
+            }
+            
+            print(jsonData)
+            
+        } catch {
+            NSLog("JSON serialization failed!")
+        }
     }
 }

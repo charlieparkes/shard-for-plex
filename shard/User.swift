@@ -6,6 +6,9 @@
 //  Copyright © 2016 Charlie Mathews. All rights reserved.
 //
 
+//https://forums.plex.tv/discussion/129922/how-to-request-a-x-plex-token-token-for-your-app
+//https://github.com/Arcanemagus/plex-api
+
 import UIKit
 import Foundation
 

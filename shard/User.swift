@@ -1,10 +1,7 @@
-//
-//  User.swift
-//  shard
-//
-//  Created by Charles Mathews on 4/19/16.
-//  Copyright © 2016 Charlie Mathews. All rights reserved.
-//
+/*
+ Shard by Charlie Mathews & Sarah Burgess
+ This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
+*/
 
 //https://forums.plex.tv/discussion/129922/how-to-request-a-x-plex-token-token-for-your-app
 //https://github.com/Arcanemagus/plex-api
@@ -23,10 +20,10 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     
     let defaults : NSUserDefaults = NSUserDefaults() //NSUserDefaults.standardUserDefaults()
     let defaults_token_key : String = "shard_token"
-    let defaults_username_key : String = "shard_username"
+    //let defaults_username_key : String = "shard_username"
     
     dynamic var loggedin : Bool
-    dynamic var username = ""
+    //dynamic var username = ""
     dynamic var token = ""
     dynamic var authentication_token : String {
         get {
@@ -47,11 +44,12 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         if let t : String = defaults.stringForKey(defaults_token_key) {
             print("We have a stored user token.")
             authentication_token = t
+            loggedin = true
         }
-        if let u : String = defaults.stringForKey(defaults_username_key) {
+        /*if let u : String = defaults.stringForKey(defaults_username_key) {
             print("We have a stored username.")
             username = u
-        }
+        }*/
     }
     
     func checkToken() {

@@ -39,6 +39,9 @@
                                         <include reference="y1m-98-1si"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="usernameFieldTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uy8-7v-NGf"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Shard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="639-xM-ACL">
                                 <rect key="frame" x="210" y="171" width="180" height="72"/>
@@ -165,6 +168,10 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="passwordField" destination="mmV-2A-VFT" id="aXN-z8-ugu"/>
+                        <outlet property="usernameField" destination="o9v-UH-57V" id="nrS-Ae-eCl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

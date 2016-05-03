@@ -43,7 +43,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if let t : String = NSUserDefaults().stringForKey(Constants.Defaults.token_key) {
             if t != "" {
                 //animateLogin(true)
-                NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.animateLogin(_:)), userInfo: nil, repeats: false)
+                NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.animateLoginProgress), userInfo: nil, repeats: false)
             }
         }
     }
@@ -98,8 +98,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             animateLoginProgress()
         } else if enabled == false {
             animateLoginRegress()
-        } else {
-            animateLoginProgress()
         }
         
     }
@@ -109,7 +107,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             self.loginContainer.alpha = 0
             let distance = self.view.bounds.height - (self.loginContainer.center.y - (self.loginContainer.frame.height/2))
-            print("moving login \(distance)")
             self.loginContainer.transform = CGAffineTransformTranslate(self.loginContainer.transform, 0, distance)
             
             }, completion: nil)
@@ -117,7 +114,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         UIView.animateWithDuration(2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             
             let distance = self.view.center.y - self.logoImage.center.y
-            print("moving login \(distance)")
             self.logoImage.transform = CGAffineTransformTranslate(self.logoImage.transform, 0, distance)
             
             }, completion: nil)

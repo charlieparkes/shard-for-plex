@@ -37,12 +37,18 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
         
         super.init()
         
+        authentication_token = "" // FOR DEBUG
+        
         if let t : String = defaults.stringForKey(defaults_token_key) {
             if t != "" {
                 print("We have a stored user token.")
                 authentication_token = t
                 loggedin = checkLogin()
+            } else {
+                print("User hasn't logged in before. 1")
             }
+        } else {
+            print("User hasn't logged in before. 2")
         }
     }
     

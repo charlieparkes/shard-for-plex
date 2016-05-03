@@ -53,7 +53,7 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-        print("Pullig servers.")
+        print("Pulling servers.")
         
         config.HTTPAdditionalHeaders = ["X-Plex-Token" : user.authentication_token,
                                         "X-Plex-Platform" : "iOS",

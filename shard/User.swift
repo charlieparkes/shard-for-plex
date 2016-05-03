@@ -6,17 +6,11 @@
 //https://forums.plex.tv/discussion/129922/how-to-request-a-x-plex-token-token-for-your-app
 //https://github.com/Arcanemagus/plex-api
 
-import UIKit
 import Foundation
 
-class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
+final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     
     static var sharedInstance : User = User()
-    
-    let PLEX_signin : String = "https://plex.tv/users/sign_in.json"
-    
-    let product : String    = "Shard"
-    let version : String    = "0.1"
     
     let defaults : NSUserDefaults = NSUserDefaults() //NSUserDefaults.standardUserDefaults()
     let defaults_token_key : String = "shard_token"
@@ -43,6 +37,7 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         
         super.init()
         
+        print("DEBUG: clearing stored token")
         authentication_token = ""
         
         if let t : String = defaults.stringForKey(defaults_token_key) {
@@ -52,14 +47,11 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
                 loggedin = checkLogin()
             }
         }
-        /*if let u : String = defaults.stringForKey(defaults_username_key) {
-            print("We have a stored username.")
-            username = u
-        }*/
     }
     
     func checkLogin() -> Bool {
         // if authentication_token is valid... (query plex)
+        print("DEBUG: need to check stored token")
         return true
     }
     
@@ -83,12 +75,12 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         
         config.HTTPAdditionalHeaders = ["Authorization" : authString,
                                         "X-Plex-Platform" : "iOS",
-                                        "X-Plex-Platform-Version" : UIDevice.currentDevice().systemVersion,
-                                        "X-Plex-Device" : UIDevice.currentDevice().model,
-                                        "X-Plex-Device-Name" : UIDevice.currentDevice().name,
-                                        "X-Plex-Client-Identifier" : NSUUID().UUIDString,
-                                        "X-Plex-Product" : product,
-                                        "X-Plex-Version" : version]
+                                        "X-Plex-Platform-Version" : Constants.systemVersion,
+                                        "X-Plex-Device" : Constants.model,
+                                        "X-Plex-Device-Name" : Constants.name,
+                                        "X-Plex-Client-Identifier" : Constants.uniqueID,
+                                        "X-Plex-Product" : Constants.product,
+                                        "X-Plex-Version" : Constants.version]
         
         print(config.HTTPAdditionalHeaders)
         
@@ -97,7 +89,7 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         //let task = session.downloadTaskWithURL(NSURL(string: PLEX_signin)!)
         //task.resume()
         
-        let request = NSMutableURLRequest(URL: NSURL(string: PLEX_signin)!)
+        let request = NSMutableURLRequest(URL: NSURL(string: Constants.PLEX_API.signin)!)
         request.HTTPMethod = "POST"
         let task = session.downloadTaskWithRequest(request)
         task.resume()
@@ -142,14 +134,12 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
                     
                 } else if k == "error" {
                     let msg = v as! String
-                    //print(msg)
-                    
-                    loginerror = true
                     loginerrormessage = msg
+                    loginerror = true
                 }
             }
             
-            print(jsonData)
+            //print(jsonData)
             
         } catch {
             NSLog("JSON serialization failed!")

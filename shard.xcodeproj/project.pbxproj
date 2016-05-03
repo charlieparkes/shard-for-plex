@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0F26CD671CD7F834001078C6 /* shard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F26CD661CD7F834001078C6 /* shard.png */; };
+		0F26CD691CD8467B001078C6 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD681CD8467B001078C6 /* Server.swift */; };
+		0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */; };
+		0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6C1CD847D0001078C6 /* Constants.swift */; };
+		0F26CD6F1CD851EF001078C6 /* SelfPopulatingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6E1CD851EF001078C6 /* SelfPopulatingRepository.swift */; };
 		0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F332CE51CC6A5E600D6452C /* LoginViewController.swift */; };
 		0F332CE81CC6A66200D6452C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F332CE71CC6A66200D6452C /* User.swift */; };
 		0F5E752B1CC6748400A17F71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E752A1CC6748400A17F71 /* AppDelegate.swift */; };
@@ -19,6 +23,10 @@
 
 /* Begin PBXFileReference section */
 		0F26CD661CD7F834001078C6 /* shard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shard.png; sourceTree = "<group>"; };
+		0F26CD681CD8467B001078C6 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerRepository.swift; sourceTree = "<group>"; };
+		0F26CD6C1CD847D0001078C6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0F26CD6E1CD851EF001078C6 /* SelfPopulatingRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfPopulatingRepository.swift; sourceTree = "<group>"; };
 		0F332CE51CC6A5E600D6452C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0F332CE71CC6A66200D6452C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0F5E75271CC6748400A17F71 /* shard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,6 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				0F332CE71CC6A66200D6452C /* User.swift */,
+				0F26CD681CD8467B001078C6 /* Server.swift */,
+				0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */,
+				0F26CD6E1CD851EF001078C6 /* SelfPopulatingRepository.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -92,6 +103,7 @@
 		0F5E75291CC6748400A17F71 /* shard */ = {
 			isa = PBXGroup;
 			children = (
+				0F26CD6C1CD847D0001078C6 /* Constants.swift */,
 				0F26CD651CD7F80E001078C6 /* Images */,
 				0F332CE91CC6A66800D6452C /* Model */,
 				0F332CEB1CC6AC6D00D6452C /* View */,
@@ -177,9 +189,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F26CD691CD8467B001078C6 /* Server.swift in Sources */,
 				0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */,
 				0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */,
 				0F332CE81CC6A66200D6452C /* User.swift in Sources */,
+				0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */,
+				0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */,
+				0F26CD6F1CD851EF001078C6 /* SelfPopulatingRepository.swift in Sources */,
 				0F5E752B1CC6748400A17F71 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

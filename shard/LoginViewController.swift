@@ -7,9 +7,6 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    let user = User.sharedInstance
-    let KVO_Options = NSKeyValueObservingOptions([.New, .Old])
-    
     @IBOutlet weak var loginContainer: UIView!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var usernameField: UITextField!
@@ -169,23 +166,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loadObservers() {
-        user.addObserver(self, forKeyPath: "loggedin", options: KVO_Options, context: nil)
-        user.addObserver(self, forKeyPath: "loginerror", options: KVO_Options, context: nil)
+        user.addObserver(self, forKeyPath: "loggedin", options: Constants.KVO_Options, context: nil)
+        user.addObserver(self, forKeyPath: "loginerror", options: Constants.KVO_Options, context: nil)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
-        print("Login: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
+        //print("Login: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
         
         if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
             
-            //
+            print("DEBUG: login view sees that user logged in succesfully.")
+            //segue to servers view
             
         } else if keyPath == "loginerror" && user.loginerror == true {
             
             animateLogin(false)
             
-            let alert = UIAlertController(title: "Oops!", message:user.loginerrormessage, preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Oops!", message: user.loginerrormessage, preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "OK", style: .Default) { _ in })
             self.presentViewController(alert, animated: true){}
         }

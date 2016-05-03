@@ -6,22 +6,36 @@
 import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
-
+    
+    @IBOutlet weak var loginContainer: UIView!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var logoImage: UIImageView!
+    
     @IBAction func usernameFieldTouch(sender: AnyObject) {
     }
     
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var usernameField: UITextField!
+    func filterChars(field: UITextField) {
+        field.text = field.text?.stringByReplacingOccurrencesOfString(" ", withString: "")
+    }
+    
+    @IBAction func usernameChanged(sender: AnyObject) {
+        filterChars(sender as! UITextField)
+    }
+    
+    @IBAction func passwordChanged(sender: AnyObject) {
+        filterChars(sender as! UITextField)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         usernameField.delegate = self
         passwordField.delegate = self
-        
-        //usernameField.placeholder="username"
-        //passwordField.placeholder="password"
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,19 +44,121 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func login(u: String, p: String) {
         //User.sharedInstance.login("luxprimus", p: "Puppies&$w33t$")
+
+        //validation is done on login screen
+        User.sharedInstance.login(u, p: p)
+    }
+    
+    func isPasswordValid() -> Bool {
         
-        if(u != "" && p != "") { // more extensive validation needed before publishing app
-            User.sharedInstance.login(u, p: p)
+        if passwordField.text == "" {
+            return false
+        }
+        
+        return true
+    }
+    
+    func isUsernameValid() -> Bool {
+        
+        if usernameField.text == "" {
+            return false
+        }
+        
+        return true
+    }
+    
+    func animateLogo(enabled : Bool) {
+        
+        if enabled == true {
+            UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut, .Repeat, .Autoreverse], animations: {
+                self.logoImage.alpha = 0.7
+            }, completion: nil)
+        } else {
+            logoImage.layer.removeAllAnimations()
+            
+            UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations: {
+                self.logoImage.alpha = 1
+                }, completion: nil)
         }
     }
     
+    func animateLogin(enabled : Bool) {
+        
+        if enabled == true {
+            
+            UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                
+                self.loginContainer.alpha = 0
+                let distance = self.view.bounds.height - (self.loginContainer.center.y - (self.loginContainer.frame.height/2))
+                self.loginContainer.transform = CGAffineTransformTranslate(self.loginContainer.transform, 0, distance)
+                
+                }, completion: nil)
+            
+            UIView.animateWithDuration(2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                
+                let distance = self.view.center.y - self.logoImage.center.y
+                self.logoImage.transform = CGAffineTransformTranslate(self.logoImage.transform, 0, distance)
+                
+                }, completion: nil)
+            
+            animateLogo(true)
+            
+        } else {
+            
+            animateLogo(false)
+            self.usernameField.text = ""
+            self.passwordField.text = ""
+            
+            UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+    
+                self.loginContainer.alpha = 0.65
+                self.loginContainer.transform = CGAffineTransformIdentity
+                
+                }, completion: nil)
+            
+            UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                
+                self.logoImage.transform = CGAffineTransformIdentity
+                
+                }, completion: nil)
+            
+            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(shakeLogin), userInfo: nil, repeats: false)
+        }
+        
+    }
+    
+    func shakeLogin() {
+        shake(loginContainer)
+    }
+    
+    func shake(field : UIView) {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.duration = 0.6
+        animation.values = [-20.0, 20.0, -20.0, 20.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        field.layer.addAnimation(animation, forKey: "shake")
+    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         if textField == usernameField {
             passwordField.becomeFirstResponder()
         } else if textField == passwordField {
-            login(usernameField.text!, p: passwordField.text!)
+            
+            if(isPasswordValid() && isUsernameValid()) {
+                
+                animateLogin(true)
+                //login(usernameField.text!, p: passwordField.text!)
+                
+                NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(animateLogin), userInfo: nil, repeats: false)
+                
+            } else {
+                
+                shakeLogin()
+                self.usernameField.text = ""
+                self.passwordField.text = ""
+                
+            }
         }
         return true
     }

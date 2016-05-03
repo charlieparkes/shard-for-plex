@@ -23,6 +23,10 @@ struct Constants {
         static let servers : String = "https://plex.tv/pms/servers.xml"
     }
     
+    struct Defaults {
+        static let token_key : String = "shard_token"
+    }
+    
     static let KVO_Options = NSKeyValueObservingOptions([.New, .Old])
     
 }

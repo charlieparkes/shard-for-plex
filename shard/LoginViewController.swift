@@ -38,6 +38,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordField.delegate = self
         
         loadObservers()
+        servers.loadObservers()
+        
+        if let t : String = NSUserDefaults().stringForKey(Constants.Defaults.token_key) {
+            if t != "" {
+                //animateLogin(true)
+                NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.animateLogin(_:)), userInfo: nil, repeats: false)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,7 +83,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut, .Repeat, .Autoreverse], animations: {
                 self.logoImage.alpha = 0.7
             }, completion: nil)
-        } else {
+        } else if enabled == false {
             logoImage.layer.removeAllAnimations()
             
             UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseOut], animations: {
@@ -87,46 +95,55 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     func animateLogin(enabled : Bool) {
         
         if enabled == true {
-            
-            UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-                
-                self.loginContainer.alpha = 0
-                let distance = self.view.bounds.height - (self.loginContainer.center.y - (self.loginContainer.frame.height/2))
-                self.loginContainer.transform = CGAffineTransformTranslate(self.loginContainer.transform, 0, distance)
-                
-                }, completion: nil)
-            
-            UIView.animateWithDuration(2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-                
-                let distance = self.view.center.y - self.logoImage.center.y
-                self.logoImage.transform = CGAffineTransformTranslate(self.logoImage.transform, 0, distance)
-                
-                }, completion: nil)
-            
-            animateLogo(true)
-            
+            animateLoginProgress()
+        } else if enabled == false {
+            animateLoginRegress()
         } else {
-            
-            animateLogo(false)
-            self.usernameField.text = ""
-            self.passwordField.text = ""
-            
-            UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-    
-                self.loginContainer.alpha = 0.65
-                self.loginContainer.transform = CGAffineTransformIdentity
-                
-                }, completion: nil)
-            
-            UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-                
-                self.logoImage.transform = CGAffineTransformIdentity
-                
-                }, completion: nil)
-            
-            NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(shakeLogin), userInfo: nil, repeats: false)
+            animateLoginProgress()
         }
         
+    }
+    
+    func animateLoginProgress() {
+        UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+            self.loginContainer.alpha = 0
+            let distance = self.view.bounds.height - (self.loginContainer.center.y - (self.loginContainer.frame.height/2))
+            print("moving login \(distance)")
+            self.loginContainer.transform = CGAffineTransformTranslate(self.loginContainer.transform, 0, distance)
+            
+            }, completion: nil)
+        
+        UIView.animateWithDuration(2, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+            let distance = self.view.center.y - self.logoImage.center.y
+            print("moving login \(distance)")
+            self.logoImage.transform = CGAffineTransformTranslate(self.logoImage.transform, 0, distance)
+            
+            }, completion: nil)
+        
+        animateLogo(true)
+    }
+    
+    func animateLoginRegress() {
+        animateLogo(false)
+        self.usernameField.text = ""
+        self.passwordField.text = ""
+        
+        UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+            self.loginContainer.alpha = 0.65
+            self.loginContainer.transform = CGAffineTransformIdentity
+            
+            }, completion: nil)
+        
+        UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+            self.logoImage.transform = CGAffineTransformIdentity
+            
+            }, completion: nil)
+        
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(shakeLogin), userInfo: nil, repeats: false)
     }
     
     func shakeLogin() {
@@ -176,7 +193,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
             
-            print("DEBUG: login view sees that user logged in succesfully.")
             //segue to servers view
             
         } else if keyPath == "loginerror" && user.loginerror == true {

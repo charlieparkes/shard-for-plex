@@ -13,20 +13,20 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
     static var sharedInstance : User = User()
     
     let defaults : NSUserDefaults = NSUserDefaults() //NSUserDefaults.standardUserDefaults()
-    let defaults_token_key : String = "shard_token"
+    let defaults_token_key : String = Constants.Defaults.token_key
     //let defaults_username_key : String = "shard_username"
     
     dynamic var loggedin : Bool = false
     dynamic var loginerror : Bool = false
     var loginerrormessage : String = ""
     //dynamic var username = ""
-    var token = ""
+    dynamic var token = ""
     dynamic var authentication_token : String {
         get {
             return token
         }
         set {
-            print("Set token \(newValue)")
+            print("Set token \"\(newValue)\"")
             token = newValue
             loggedin = true
             defaults.setObject(newValue, forKey: defaults_token_key)
@@ -36,9 +36,6 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
     private override init () {
         
         super.init()
-        
-        print("DEBUG: clearing stored token")
-        authentication_token = ""
         
         if let t : String = defaults.stringForKey(defaults_token_key) {
             if t != "" {
@@ -51,7 +48,7 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
     
     func checkLogin() -> Bool {
         // if authentication_token is valid... (query plex)
-        print("DEBUG: need to check stored token")
+        print("DEBUG: still need to verify stored token")
         return true
     }
     
@@ -82,12 +79,9 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
                                         "X-Plex-Product" : Constants.product,
                                         "X-Plex-Version" : Constants.version]
         
-        print(config.HTTPAdditionalHeaders)
+        //print(config.HTTPAdditionalHeaders)
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
-        
-        //let task = session.downloadTaskWithURL(NSURL(string: PLEX_signin)!)
-        //task.resume()
         
         let request = NSMutableURLRequest(URL: NSURL(string: Constants.PLEX_API.signin)!)
         request.HTTPMethod = "POST"

@@ -10,18 +10,21 @@ import Foundation
 final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     
     static var sharedInstance : ServerRepository = ServerRepository()
+    var observersLoaded : Bool = false
     
     var servers : [Server] = []
     
     private override init() {
         super.init()
         
-        print("server repository initialized")
         loadObservers()
     }
     
     func loadObservers() {
-        user.addObserver(self, forKeyPath: "loggedin", options: Constants.KVO_Options, context: nil)
+        if(observersLoaded == false) {
+            observersLoaded = true
+            user.addObserver(self, forKeyPath: "loggedin", options: Constants.KVO_Options, context: nil)
+        }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -31,7 +34,6 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
         if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
             
             // automatically pull servers when user logs in
-            print("DEBUG: server repository sees that user logged in")
             get()
             
         }
@@ -51,7 +53,7 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-        print("Attempting to pull servers.")
+        print("Pullig servers.")
         
         config.HTTPAdditionalHeaders = ["X-Plex-Token" : user.authentication_token,
                                         "X-Plex-Platform" : "iOS",
@@ -62,7 +64,7 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
                                         "X-Plex-Product" : Constants.product,
                                         "X-Plex-Version" : Constants.version]
         
-        print(config.HTTPAdditionalHeaders)
+        //print(config.HTTPAdditionalHeaders)
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         

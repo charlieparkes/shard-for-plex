@@ -22,9 +22,11 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     let defaults_token_key : String = "shard_token"
     //let defaults_username_key : String = "shard_username"
     
-    dynamic var loggedin : Bool
+    dynamic var loggedin : Bool = false
+    dynamic var loginerror : Bool = false
+    var loginerrormessage : String = ""
     //dynamic var username = ""
-    dynamic var token = ""
+    var token = ""
     dynamic var authentication_token : String {
         get {
             return token
@@ -32,19 +34,23 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         set {
             print("Set token \(newValue)")
             token = newValue
+            loggedin = true
             defaults.setObject(newValue, forKey: defaults_token_key)
         }
     }
     
     private override init () {
-        loggedin = false
         
         super.init()
         
+        authentication_token = ""
+        
         if let t : String = defaults.stringForKey(defaults_token_key) {
-            print("We have a stored user token.")
-            authentication_token = t
-            loggedin = true
+            if t != "" {
+                print("We have a stored user token.")
+                authentication_token = t
+                loggedin = checkLogin()
+            }
         }
         /*if let u : String = defaults.stringForKey(defaults_username_key) {
             print("We have a stored username.")
@@ -52,8 +58,9 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
         }*/
     }
     
-    func checkToken() {
-        
+    func checkLogin() -> Bool {
+        // if authentication_token is valid... (query plex)
+        return true
     }
     
     func login(u : String, p : String) {
@@ -61,6 +68,9 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     }
     
     func loginRequest(u : String, p : String) {
+        
+        loggedin = false
+        loginerror = false
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
@@ -100,7 +110,9 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
     // Download complete with error.
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         if(error != nil) {
-            print(error)
+            loginerror = true
+            loginerrormessage = "Unknown error."
+            print("Login request session error.")
         }
     }
     
@@ -130,7 +142,10 @@ class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
                     
                 } else if k == "error" {
                     let msg = v as! String
-                    print(msg)
+                    //print(msg)
+                    
+                    loginerror = true
+                    loginerrormessage = msg
                 }
             }
             

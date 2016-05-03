@@ -7,6 +7,9 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
+    let user = User.sharedInstance
+    let KVO_Options = NSKeyValueObservingOptions([.New, .Old])
+    
     @IBOutlet weak var loginContainer: UIView!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var usernameField: UITextField!
@@ -36,6 +39,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         usernameField.delegate = self
         passwordField.delegate = self
+        
+        loadObservers()
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,7 +51,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         //User.sharedInstance.login("luxprimus", p: "Puppies&$w33t$")
 
         //validation is done on login screen
-        User.sharedInstance.login(u, p: p)
+        user.login(u, p: p)
     }
     
     func isPasswordValid() -> Bool {
@@ -148,9 +153,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if(isPasswordValid() && isUsernameValid()) {
                 
                 animateLogin(true)
-                //login(usernameField.text!, p: passwordField.text!)
+                login(usernameField.text!, p: passwordField.text!)
                 
-                NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(animateLogin), userInfo: nil, repeats: false)
+                //NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(animateLogin), userInfo: nil, repeats: false)
                 
             } else {
                 
@@ -161,6 +166,35 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
         }
         return true
+    }
+    
+    func loadObservers() {
+        user.addObserver(self, forKeyPath: "loggedin", options: KVO_Options, context: nil)
+        user.addObserver(self, forKeyPath: "loginerror", options: KVO_Options, context: nil)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        print("Login: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
+        
+        if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
+            
+            //
+            
+        } else if keyPath == "loginerror" && user.loginerror == true {
+            
+            animateLogin(false)
+            
+            let alert = UIAlertController(title: "Oops!", message:user.loginerrormessage, preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default) { _ in })
+            self.presentViewController(alert, animated: true){}
+        }
+
+    }
+
+    deinit {
+        user.removeObserver(self, forKeyPath: "loggedin", context: nil)
+        user.removeObserver(self, forKeyPath: "loginerror", context: nil)
     }
 
     /*

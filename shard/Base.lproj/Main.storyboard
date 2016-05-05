@@ -315,6 +315,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="name" destination="XAo-7u-xD5" id="Jgu-ry-mRR"/>
+                                    <segue destination="Lhv-Nu-2FQ" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="sgP-Rb-YDY"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="library" id="LRQ-5U-MVa" customClass="LibraryCell" customModule="shard" customModuleProvider="target">
@@ -359,6 +360,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="name" destination="Y1m-jc-2M0" id="PKx-x3-gOC"/>
+                                    <segue destination="9Wa-5N-cdt" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="0AW-IF-Dno"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -375,7 +377,7 @@
         <!--Navigation Controller-->
         <scene sceneID="XCU-fP-GpY">
             <objects>
-                <navigationController id="Lhv-Nu-2FQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="OnDeckNav" id="Lhv-Nu-2FQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UF3-hg-tgB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -402,7 +404,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="7Gz-AU-QwH">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="a4U-3x-MUQ"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="a4U-3x-MUQ"/>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="a4U-3x-MUQ" id="Cax-dj-Jl5"/>
@@ -458,7 +460,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" id="rlG-YO-UoL">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="RFM-Lg-3ue"/>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="RFM-Lg-3ue"/>
                     </navigationItem>
                     <connections>
                         <outlet property="menuButton" destination="RFM-Lg-3ue" id="muX-Of-gp8"/>
@@ -470,6 +472,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="menu" width="22" height="22"/>
         <image name="shard.png" width="400" height="800"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="sgP-Rb-YDY"/>
+        <segue reference="0AW-IF-Dno"/>
+    </inferredMetricsTieBreakers>
 </document>

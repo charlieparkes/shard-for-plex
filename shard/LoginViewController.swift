@@ -3,8 +3,6 @@
  This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
  */
 
-//https://github.com/John-Lluch/SWRevealViewController
-
 import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {

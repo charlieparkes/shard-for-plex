@@ -1,10 +1,7 @@
-//
-//  OnDeckViewController.swift
-//  shard
-//
-//  Created by Charles Mathews on 5/5/16.
-//  Copyright © 2016 Charlie Mathews. All rights reserved.
-//
+/*
+ Shard by Charlie Mathews & Sarah Burgess
+ This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
+ */
 
 import UIKit
 
@@ -14,10 +11,9 @@ class OnDeckViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
-            //menuButton.action = "revealToggle:"
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
@@ -27,7 +23,6 @@ class OnDeckViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

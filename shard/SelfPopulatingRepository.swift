@@ -5,6 +5,6 @@
 
 import Foundation
 
-protocol SelfPopulatingRepository {
-
+protocol SelfPopulatingRepository : NSURLSessionDelegate, NSURLSessionDownloadDelegate, NSXMLParserDelegate {
+    func processResponse(data : NSData)
 }

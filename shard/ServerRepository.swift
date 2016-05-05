@@ -7,16 +7,14 @@
 
 import Foundation
 
-final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate, NSXMLParserDelegate {
+final class ServerRepository : NSObject, SelfPopulatingRepository {
     
     static var sharedInstance : ServerRepository = ServerRepository()
     var observersLoaded : Bool = false
     
+    var queryInProgress = false
     var servers : [Server] = []
-    
     var parser : NSXMLParser = NSXMLParser()
-    var elements = [:]
-    var element : String = ""
     
     private override init() {
         super.init()
@@ -52,6 +50,8 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
             print("Tried to get servers, but user not logged in.")
             return
         }
+        
+        queryInProgress = true
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
@@ -98,7 +98,6 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
         
         parser = NSXMLParser(data: data)
         parser.delegate = self
-        
         parser.parse()
         
     }
@@ -119,6 +118,10 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
             print("Found \"\(server.name)\" at \(server.scheme)://\(server.address):\(server.port)")
             servers.append(server)
         }
+    }
+    
+    func parserDidEndDocument(parser: NSXMLParser) {
+        queryInProgress = false
     }
     
 }

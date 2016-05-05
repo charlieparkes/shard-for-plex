@@ -45,17 +45,13 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
             if t != "" {
                 print("We have a stored user token.")
                 authentication_token = t
-            } else {
-                print("User hasn't logged in before. 1")
             }
-        } else {
-            print("User hasn't logged in before. 2")
         }
     }
     
     func checkLogin() -> Bool {
         // if authentication_token is valid... (query plex)
-        print("DEBUG: still need to verify stored token")
+        print("DEBUG: need to verify stored token!")
         return true
     }
     

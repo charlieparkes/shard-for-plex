@@ -19,4 +19,7 @@ class Server : NSObject {
     var scheme = ""
     var machineIdentifier = ""
     var owned = ""
+    var version = ""
+    var createdAt = ""
+    var updatedAt = ""
 }

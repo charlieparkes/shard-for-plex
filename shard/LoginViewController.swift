@@ -3,6 +3,8 @@
  This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
  */
 
+//https://github.com/John-Lluch/SWRevealViewController
+
 import UIKit
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
@@ -199,7 +201,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
             
-            //segue to servers view
+            performSegueWithIdentifier("showLibrary", sender: nil)
             
         } else if keyPath == "loginerror" && user.loginerror == true {
             
@@ -208,6 +210,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let alert = UIAlertController(title: "Oops!", message: user.loginerrormessage, preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "OK", style: .Default) { _ in })
             self.presentViewController(alert, animated: true){}
+            
         }
 
     }

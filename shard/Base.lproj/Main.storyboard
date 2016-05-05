@@ -256,6 +256,7 @@
                     <connections>
                         <segue destination="jCD-mh-qV4" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="c8D-yH-JEm"/>
                         <segue destination="9Wa-5N-cdt" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="3Dy-n5-aO1"/>
+                        <segue destination="Lhv-Nu-2FQ" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="2Qr-vW-GOb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bG5-HQ-R7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -336,6 +337,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3Q-Xz-PBt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="847" y="1212.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XCU-fP-GpY">
+            <objects>
+                <navigationController id="Lhv-Nu-2FQ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UF3-hg-tgB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dJ4-0I-Yzd" kind="relationship" relationship="rootViewController" id="Zf8-gh-Xq5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J8B-BH-r3G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1711" y="-249.75"/>
+        </scene>
+        <!--On Deck View Controller-->
+        <scene sceneID="zNa-HE-qQg">
+            <objects>
+                <viewController id="dJ4-0I-Yzd" customClass="OnDeckViewController" customModule="shard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ssl-Vj-Se5"/>
+                        <viewControllerLayoutGuide type="bottom" id="BNV-UV-wGl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wuL-Sc-lVC">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="7Gz-AU-QwH">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="a4U-3x-MUQ"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="a4U-3x-MUQ" id="Cax-dj-Jl5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RQO-ci-ZXZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2473" y="-249.75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YEu-hp-T8G">

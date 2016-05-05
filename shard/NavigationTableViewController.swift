@@ -12,17 +12,26 @@ class NavigationTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    func loadObservers() {
+        servers.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        libraries.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        tableView.reloadData()
+        
+    }
+    
+    deinit {
+        servers.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        libraries.removeObserver(self, forKeyPath: "foundResults", context: nil)
     }
 
     // MARK: - Table view data source
@@ -37,8 +46,7 @@ class NavigationTableViewController: UITableViewController {
         if section == 0 {
             return servers.results.count
         } else if section == 1 {
-            // return libraries.results.count
-            return 0
+            return libraries.results.count
         } else {
             return 0
         }
@@ -69,8 +77,11 @@ class NavigationTableViewController: UITableViewController {
         if section == 0 {
             return ""
         } else if section == 1 {
-            // return "" // if >0 libraries
-            return "no libraries found" // if 0 libraries
+            if libraries.results.count == 0 {
+                return "No libraries found. :'("
+            } else {
+                return ""
+            }
         } else {
             return ""
         }
@@ -86,7 +97,8 @@ class NavigationTableViewController: UITableViewController {
             
         } else if indexPath.section == 1 {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("library", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("library", forIndexPath: indexPath) as! LibraryCell
+            cell.name.text = libraries.results[indexPath.row].title
             return cell
             
         } else {

@@ -44,6 +44,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         loadObservers()
         servers.loadObservers()
+        libraries.loadObservers()
         
         user.pullExistingUser()
         

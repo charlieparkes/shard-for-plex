@@ -1,20 +1,21 @@
-/*
- Shard by Charlie Mathews & Sarah Burgess
- This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
- */
-
-//https://www.trevisrothwell.com/2016/01/nsxmlparserdelegate-in-swift-2-0/
+//
+//  LibraryRepository.swift
+//  shard
+//
+//  Created by Charles Mathews on 5/5/16.
+//  Copyright © 2016 Charlie Mathews. All rights reserved.
+//
 
 import Foundation
 
-final class ServerRepository : NSObject, SelfPopulatingRepository {
+class LibraryRepository : NSObject, SelfPopulatingRepository {
     
-    static var sharedInstance : ServerRepository = ServerRepository()
+    static var sharedInstance : LibraryRepository = LibraryRepository()
     var observersLoaded : Bool = false
     
     var queryInProgress = false
     dynamic var foundResults = false
-    var results : [Server] = []
+    var results : [Library] = []
     var parser : NSXMLParser = NSXMLParser()
     
     private override init() {
@@ -26,7 +27,7 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
     func loadObservers() {
         if(observersLoaded == false) {
             observersLoaded = true
-            user.addObserver(self, forKeyPath: "loggedin", options: Constants.KVO_Options, context: nil)
+            servers.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
         }
     }
     
@@ -34,21 +35,20 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
         
         //print("ServerRepository: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
         
-        if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
-            
-            // automatically pull servers when user logs in
-            get()
+        if keyPath == "foundResults" && servers.foundResults == true && servers.results.count > 0 {
+            get(0) // update to reflect selected server
         }
+    
     }
     
     deinit {
-        user.removeObserver(self, forKeyPath: "loggedin", context: nil)
+        servers.removeObserver(self, forKeyPath: "foundResults", context: nil)
     }
     
-    func get() {
+    func get(serverIndex : Int) {
         
-        if(user.loggedin == false || user.authentication_token == "") {
-            print("Tried to get servers, but user not logged in.")
+        if(user.loggedin == false || user.authentication_token == "" || servers.results.count == 0) {
+            print("Tried to get libraries, but there were no servers to query.")
             return
         }
         
@@ -70,7 +70,7 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: Constants.PLEX_API.servers)!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[serverIndex].getURL())\(Constants.WEB_API.sections)")!)
         request.HTTPMethod = "GET"
         let task = session.downloadTaskWithRequest(request)
         task.resume()
@@ -107,19 +107,18 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
     
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
-        if elementName == "Server" {
+        if elementName == "Directory" {
             
-            let server = Server()
+            let library = Library()
             
             for (k,v) in attributeDict {
                 
-                if server.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
-                    server.setValue(v, forKey: k)
+                if library.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                    library.setValue(v, forKey: k)
                 }
             }
             
-            print("Found \"\(server.name)\" at \(server.scheme)://\(server.address):\(server.port)")
-            results.append(server)
+            results.append(library)
         }
     }
     

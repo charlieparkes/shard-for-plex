@@ -8,6 +8,7 @@ import UIKit
 
 let user = User.sharedInstance
 let servers = ServerRepository.sharedInstance
+let libraries = LibraryRepository.sharedInstance
 
 struct Constants {
     
@@ -21,6 +22,10 @@ struct Constants {
     struct PLEX_API {
         static let signin : String = "https://plex.tv/users/sign_in.json"
         static let servers : String = "https://plex.tv/pms/servers.xml"
+    }
+    
+    struct WEB_API {
+        static let sections : String = "/library/sections"
     }
     
     struct Defaults {

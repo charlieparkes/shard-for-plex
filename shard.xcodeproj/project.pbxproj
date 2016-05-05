@@ -25,6 +25,8 @@
 		0FD26A3F1CDBB03D00724122 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A3E1CDBB03D00724122 /* ServerCell.swift */; };
 		0FD26A411CDBB04F00724122 /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A401CDBB04F00724122 /* LibraryCell.swift */; };
 		0FD26A431CDBBB1700724122 /* OnDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A421CDBBB1700724122 /* OnDeckViewController.swift */; };
+		0FD26A451CDBC15000724122 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A441CDBC15000724122 /* Library.swift */; };
+		0FD26A471CDBC16C00724122 /* LibraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A461CDBC16B00724122 /* LibraryRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		0FD26A3E1CDBB03D00724122 /* ServerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
 		0FD26A401CDBB04F00724122 /* LibraryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		0FD26A421CDBBB1700724122 /* OnDeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeckViewController.swift; sourceTree = "<group>"; };
+		0FD26A441CDBC15000724122 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		0FD26A461CDBC16B00724122 /* LibraryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				0F26CD6E1CD851EF001078C6 /* SelfPopulatingRepository.swift */,
 				0F26CD681CD8467B001078C6 /* Server.swift */,
 				0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */,
+				0FD26A441CDBC15000724122 /* Library.swift */,
+				0FD26A461CDBC16B00724122 /* LibraryRepository.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -221,10 +227,12 @@
 			files = (
 				0FD26A3C1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift in Sources */,
 				0F26CD691CD8467B001078C6 /* Server.swift in Sources */,
+				0FD26A451CDBC15000724122 /* Library.swift in Sources */,
 				0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */,
 				0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */,
 				0FD26A431CDBBB1700724122 /* OnDeckViewController.swift in Sources */,
 				0FD26A411CDBB04F00724122 /* LibraryCell.swift in Sources */,
+				0FD26A471CDBC16C00724122 /* LibraryRepository.swift in Sources */,
 				0F332CE81CC6A66200D6452C /* User.swift in Sources */,
 				0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */,
 				0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */,

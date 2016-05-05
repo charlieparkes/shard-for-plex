@@ -34,17 +34,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        usernameField.enabled = false
+        passwordField.enabled = false
+        
         usernameField.delegate = self
         passwordField.delegate = self
         
         loadObservers()
         servers.loadObservers()
         
+        user.pullExistingUser()
+        
         if let t : String = NSUserDefaults().stringForKey(Constants.Defaults.token_key) {
             if t != "" {
-                //animateLogin(true)
                 NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.animateLoginProgress), userInfo: nil, repeats: false)
+            } else {
+                usernameField.enabled = true
+                passwordField.enabled = true
             }
+        } else {
+            usernameField.enabled = true
+            passwordField.enabled = true
         }
     }
 
@@ -52,11 +62,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         super.didReceiveMemoryWarning()
     }
     
+    func submitLogin() {
+        if(isPasswordValid() && isUsernameValid()) {
+            
+            animateLogin(true)
+            login(usernameField.text!, p: passwordField.text!)
+            
+        } else {
+            
+            shakeLogin()
+            self.usernameField.text = ""
+            self.passwordField.text = ""
+            
+        }
+    }
+    
     func login(u: String, p: String) {
-        //User.sharedInstance.login("luxprimus", p: "Puppies&$w33t$")
-
-        //validation is done on login screen
-        user.login(u, p: p)
+        user.loginRequest(u, p: p)
     }
     
     func isPasswordValid() -> Bool {
@@ -160,20 +182,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             passwordField.becomeFirstResponder()
         } else if textField == passwordField {
             
-            if(isPasswordValid() && isUsernameValid()) {
-                
-                animateLogin(true)
-                login(usernameField.text!, p: passwordField.text!)
-                
-                //NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(animateLogin), userInfo: nil, repeats: false)
-                
-            } else {
-                
-                shakeLogin()
-                self.usernameField.text = ""
-                self.passwordField.text = ""
-                
-            }
+            submitLogin()
+            
         }
         return true
     }

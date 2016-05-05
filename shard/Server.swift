@@ -12,7 +12,7 @@ import Foundation
  </MediaContainer>
  */
 
-class Server {
+class Server : NSObject {
     var name = ""
     var address = ""
     var port = ""

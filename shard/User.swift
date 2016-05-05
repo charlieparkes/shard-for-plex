@@ -21,6 +21,7 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
     var loginerrormessage : String = ""
     //dynamic var username = ""
     dynamic var token = ""
+    
     dynamic var authentication_token : String {
         get {
             return token
@@ -28,7 +29,7 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
         set {
             print("Set token \"\(newValue)\"")
             token = newValue
-            loggedin = true
+            loggedin = checkLogin()
             defaults.setObject(newValue, forKey: defaults_token_key)
         }
     }
@@ -36,14 +37,14 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
     private override init () {
         
         super.init()
-        
-        authentication_token = "" // FOR DEBUG
-        
+        //authentication_token = "" // FOR DEBUG
+    }
+    
+    func pullExistingUser() {
         if let t : String = defaults.stringForKey(defaults_token_key) {
             if t != "" {
                 print("We have a stored user token.")
                 authentication_token = t
-                loggedin = checkLogin()
             } else {
                 print("User hasn't logged in before. 1")
             }
@@ -56,10 +57,6 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
         // if authentication_token is valid... (query plex)
         print("DEBUG: still need to verify stored token")
         return true
-    }
-    
-    func login(u : String, p : String) {
-        loginRequest(u, p: p)
     }
     
     func loginRequest(u : String, p : String) {

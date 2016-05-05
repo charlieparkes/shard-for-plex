@@ -7,12 +7,16 @@
 
 import Foundation
 
-final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate {
+final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate, NSXMLParserDelegate {
     
     static var sharedInstance : ServerRepository = ServerRepository()
     var observersLoaded : Bool = false
     
     var servers : [Server] = []
+    
+    var parser : NSXMLParser = NSXMLParser()
+    var elements = [:]
+    var element : String = ""
     
     private override init() {
         super.init()
@@ -35,9 +39,7 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
             
             // automatically pull servers when user logs in
             get()
-            
         }
-        
     }
     
     deinit {
@@ -52,8 +54,6 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
         }
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        
-        print("Pulling servers.")
         
         config.HTTPAdditionalHeaders = ["X-Plex-Token" : user.authentication_token,
                                         "X-Plex-Platform" : "iOS",
@@ -96,10 +96,29 @@ final class ServerRepository : NSObject, NSURLSessionDelegate, NSURLSessionDownl
     
     func processResponse(data : NSData) {
         
-        print("DEBUG: servers request finished, need to parse xml")
-        // todo: parse xml
+        parser = NSXMLParser(data: data)
+        parser.delegate = self
+        
+        parser.parse()
         
     }
-
+    
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+        
+        if elementName == "Server" {
+            
+            let server = Server()
+            
+            for (k,v) in attributeDict {
+                
+                if server.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                    server.setValue(v, forKey: k)
+                }
+            }
+            
+            print("Found \"\(server.name)\" at \(server.scheme)://\(server.address):\(server.port)")
+            servers.append(server)
+        }
+    }
     
 }

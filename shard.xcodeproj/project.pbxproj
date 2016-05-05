@@ -20,6 +20,10 @@
 		0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E75311CC6748400A17F71 /* shard.xcdatamodeld */; };
 		0F5E75351CC6748400A17F71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F5E75341CC6748400A17F71 /* Assets.xcassets */; };
 		0F5E75381CC6748400A17F71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5E75361CC6748400A17F71 /* LaunchScreen.storyboard */; };
+		0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A391CDBAC7200724122 /* NavigationTableViewController.swift */; };
+		0FD26A3C1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */; };
+		0FD26A3F1CDBB03D00724122 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A3E1CDBB03D00724122 /* ServerCell.swift */; };
+		0FD26A411CDBB04F00724122 /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A401CDBB04F00724122 /* LibraryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		0F5E75341CC6748400A17F71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F5E75371CC6748400A17F71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F5E75391CC6748400A17F71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FD26A391CDBAC7200724122 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
+		0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieLibraryCollectionViewController.swift; sourceTree = "<group>"; };
+		0FD26A3E1CDBB03D00724122 /* ServerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
+		0FD26A401CDBB04F00724122 /* LibraryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +84,11 @@
 			isa = PBXGroup;
 			children = (
 				0F332CE51CC6A5E600D6452C /* LoginViewController.swift */,
+				0FD26A3D1CDBB01100724122 /* Navigation */,
+				0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */,
+				0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */,
+				0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */,
+				0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -83,6 +96,7 @@
 		0F332CEB1CC6AC6D00D6452C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0F0D125C1CDBA5130013B494 /* Main.storyboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -106,22 +120,28 @@
 		0F5E75291CC6748400A17F71 /* shard */ = {
 			isa = PBXGroup;
 			children = (
-				0F0D125C1CDBA5130013B494 /* Main.storyboard */,
 				0F26CD6C1CD847D0001078C6 /* Constants.swift */,
 				0F26CD651CD7F80E001078C6 /* Images */,
 				0F332CE91CC6A66800D6452C /* Model */,
-				0F332CEB1CC6AC6D00D6452C /* View */,
 				0F332CEA1CC6AC6200D6452C /* Controller */,
+				0F332CEB1CC6AC6D00D6452C /* View */,
 				0F5E75341CC6748400A17F71 /* Assets.xcassets */,
 				0F5E75361CC6748400A17F71 /* LaunchScreen.storyboard */,
 				0F5E752A1CC6748400A17F71 /* AppDelegate.swift */,
 				0F5E75391CC6748400A17F71 /* Info.plist */,
-				0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */,
-				0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */,
-				0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */,
 				0F5E75311CC6748400A17F71 /* shard.xcdatamodeld */,
 			);
 			path = shard;
+			sourceTree = "<group>";
+		};
+		0FD26A3D1CDBB01100724122 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				0FD26A391CDBAC7200724122 /* NavigationTableViewController.swift */,
+				0FD26A3E1CDBB03D00724122 /* ServerCell.swift */,
+				0FD26A401CDBB04F00724122 /* LibraryCell.swift */,
+			);
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,14 +216,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FD26A3C1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift in Sources */,
 				0F26CD691CD8467B001078C6 /* Server.swift in Sources */,
 				0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */,
 				0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */,
+				0FD26A411CDBB04F00724122 /* LibraryCell.swift in Sources */,
 				0F332CE81CC6A66200D6452C /* User.swift in Sources */,
 				0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */,
+				0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */,
 				0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */,
 				0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */,
 				0F26CD6F1CD851EF001078C6 /* SelfPopulatingRepository.swift in Sources */,
+				0FD26A3F1CDBB03D00724122 /* ServerCell.swift in Sources */,
 				0F5E752B1CC6748400A17F71 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

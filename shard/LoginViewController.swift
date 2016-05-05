@@ -201,7 +201,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
             
-            performSegueWithIdentifier("showLibrary", sender: nil)
+            dispatch_async(dispatch_get_main_queue(),{
+                self.performSegueWithIdentifier("showLibrary",sender: self)
+            })
             
         } else if keyPath == "loginerror" && user.loginerror == true {
             
@@ -220,14 +222,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         user.removeObserver(self, forKeyPath: "loginerror", context: nil)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        print(segue.identifier)
+        
     }
-    */
 
 }

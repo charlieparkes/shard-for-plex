@@ -13,7 +13,7 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
     var observersLoaded : Bool = false
     
     var queryInProgress = false
-    var servers : [Server] = []
+    var results : [Server] = []
     var parser : NSXMLParser = NSXMLParser()
     
     private override init() {
@@ -96,6 +96,7 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
     
     func processResponse(data : NSData) {
         
+        results = []
         parser = NSXMLParser(data: data)
         parser.delegate = self
         parser.parse()
@@ -116,7 +117,7 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
             }
             
             print("Found \"\(server.name)\" at \(server.scheme)://\(server.address):\(server.port)")
-            servers.append(server)
+            results.append(server)
         }
     }
     

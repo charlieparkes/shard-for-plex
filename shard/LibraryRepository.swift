@@ -15,6 +15,7 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
     var queryInProgress = false
     dynamic var foundResults = false
     var results : [Library] = []
+    var serverIndex : Int = 0
     var parser : NSXMLParser = NSXMLParser()
     
     private override init() {
@@ -51,7 +52,7 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         servers.removeObserver(self, forKeyPath: "selectedServer", context: nil)
     }
     
-    func get(index : Int) {
+    func get(server : Int) {
         
         if(user.loggedin == false || user.authentication_token == "" || servers.results.count == 0) {
             print("Tried to get libraries, but there were no servers to query.")
@@ -60,10 +61,11 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         
         foundResults = false
         queryInProgress = true
+        serverIndex = server
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-        config.HTTPAdditionalHeaders = ["X-Plex-Token" : servers.results[index].accessToken,
+        config.HTTPAdditionalHeaders = ["X-Plex-Token" : servers.results[server].accessToken,
                                         "X-Plex-Platform" : "iOS",
                                         "X-Plex-Platform-Version" : Constants.systemVersion,
                                         "X-Plex-Device" : Constants.model,
@@ -76,7 +78,7 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[index].getURL())\(Constants.WEB_API.sections)")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[server].getURL())\(Constants.WEB_API.sections)")!)
         //let request = NSMutableURLRequest(URL: NSURL(string: "\(Constants.PLEX_API.sections)")!)
         request.HTTPMethod = "GET"
         let task = session.downloadTaskWithRequest(request)

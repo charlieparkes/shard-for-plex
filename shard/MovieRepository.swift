@@ -7,17 +7,17 @@
 
 import Foundation
 
-class MovieRepository : NSObject, SelfPopulatingRepository {
+class MovieRepository : MediaRepository, SelfPopulatingRepository {
     
-    static var sharedInstance : MovieRepository = MovieRepository()
     var observersLoaded : Bool = false
     
     var queryInProgress = false
     dynamic var foundResults = false
     var results : [Movie] = []
+    var libraryIndex : Int = 0
     var parser : NSXMLParser = NSXMLParser()
     
-    private override init() {
+    override init() {
         super.init()
         
         loadObservers()
@@ -36,7 +36,7 @@ class MovieRepository : NSObject, SelfPopulatingRepository {
     deinit {
     }
     
-    func get(index : Int) {
+    func get(server : Int, library : Int) {
         
         if(user.loggedin == false || user.authentication_token == "" || servers.results.count == 0 || libraries.results.count == 0) {
             print("Tried to get movies, but there were no servers to query.")
@@ -45,10 +45,11 @@ class MovieRepository : NSObject, SelfPopulatingRepository {
         
         foundResults = false
         queryInProgress = true
+        libraryIndex = library
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-        config.HTTPAdditionalHeaders = ["X-Plex-Token" : servers.results[index].accessToken,
+        config.HTTPAdditionalHeaders = ["X-Plex-Token" : servers.results[server].accessToken,
                                         "X-Plex-Platform" : "iOS",
                                         "X-Plex-Platform-Version" : Constants.systemVersion,
                                         "X-Plex-Device" : Constants.model,
@@ -61,8 +62,10 @@ class MovieRepository : NSObject, SelfPopulatingRepository {
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[index].getURL())\(Constants.WEB_API.sections)")!)
-        //let request = NSMutableURLRequest(URL: NSURL(string: "\(Constants.PLEX_API.sections)")!)
+        let url = "\(servers.results[server].getURL())\(Constants.WEB_API.sections)/\(libraries.results[library].key)/all"
+        print(url)
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        
         request.HTTPMethod = "GET"
         let task = session.downloadTaskWithRequest(request)
         task.resume()
@@ -90,37 +93,60 @@ class MovieRepository : NSObject, SelfPopulatingRepository {
     
     func processResponse(data : NSData) {
         
+        //let string = NSString(data: data, encoding: NSASCIIStringEncoding)
+        
         results = []
         parser = NSXMLParser(data: data)
         parser.delegate = self
         parser.parse()
-        
     }
     
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
-        if elementName == "Directory" {
+        if elementName == "Video" {
             
-            let library = Library()
+            results.append(Movie())
             
             for (k,v) in attributeDict {
                 
-                if library.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
-                    library.setValue(v, forKey: k)
+                if results.last!.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                    results.last!.setValue(v, forKey: k)
                 }
             }
             
-            results.append(library)
+        } else if elementName == "Media" {
+            
+            results.last!.media.append(MovieMedia())
+            
+            for (k,v) in attributeDict {
+                
+                if results.last!.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                    results.last!.setValue(v, forKey: k)
+                }
+            }
+            
+        } else if elementName == "Part" {
+            
+            let part = MovieMediaPart()
+            
+            for (k,v) in attributeDict {
+                
+                if part.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                    part.setValue(v, forKey: k)
+                }
+            }
+            
+            results.last!.media.last!.parts.append(part)
         }
+    }
+    
+    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
     }
     
     func parserDidEndDocument(parser: NSXMLParser) {
         if results.count > 0 {
-            print("Found \(results.count) libraries.")
-            
-            for library in results {
-                print("\t\(library.title)")
-            }
+            print("Found \(results.count) movies in \(servers.results[servers.selectedServer].name) -> \(libraries.results[libraryIndex].title)")
             
             foundResults = true
         }

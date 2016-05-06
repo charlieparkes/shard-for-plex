@@ -14,6 +14,7 @@ import Foundation
  */
 
 class Library : NSObject {
+    
     var filters = ""
     var key = ""
     var type = ""
@@ -21,4 +22,6 @@ class Library : NSObject {
     var uuid = ""
     var updatedAt = ""
     var createdAt = ""
+    
+    var contents = MovieRepository()
 }

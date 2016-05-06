@@ -6,7 +6,7 @@
 
 import Foundation
 
-class MovieMediaPart {
+class MovieMediaPart : NSObject {
     
     var id = ""
     var key = ""

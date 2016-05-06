@@ -6,9 +6,9 @@
 
 import Foundation
 
-class MovieMedia {
+class MovieMedia : NSObject {
     
-    var parts : [VideoMediaPart] = []
+    var parts : [MovieMediaPart] = []
     
     var videoResolution = ""
     var id = ""

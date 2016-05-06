@@ -5,7 +5,7 @@
 
 import Foundation
 
-class Movie {
+class Movie: NSObject {
     var key = ""
     var summary = ""
     var title = ""
@@ -20,7 +20,7 @@ class Movie {
     var thumb = ""
     var art = ""
     var duration = ""
-    var media : [VideoMedia] = []
+    var media : [MovieMedia] = []
     //var genre : [String] = []
     //var writer : [String] = []
     //var director : [String] = []

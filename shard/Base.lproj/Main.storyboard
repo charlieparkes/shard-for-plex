@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shard.png" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-m7-BxX">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shard" translatesAutoresizingMaskIntoConstraints="NO" id="ExN-m7-BxX">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="JTP-Pw-HaZ"/>
@@ -364,13 +364,13 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="button" id="32d-ap-idc" customClass="ButtonCell" customModule="shard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="137.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="32d-ap-idc" id="f1m-ta-UhE">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{button title}" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6g-ei-1gC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{button title}" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6g-ei-1gC">
                                             <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
@@ -378,18 +378,18 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="k6g-ei-1gC" firstAttribute="centerY" secondItem="f1m-ta-UhE" secondAttribute="centerY" id="J0P-Up-3An"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="k6g-ei-1gC" secondAttribute="trailing" id="PCi-or-3XW"/>
-                                        <constraint firstItem="k6g-ei-1gC" firstAttribute="leading" secondItem="f1m-ta-UhE" secondAttribute="leadingMargin" id="ThW-3w-lzW"/>
+                                        <constraint firstItem="k6g-ei-1gC" firstAttribute="centerY" secondItem="f1m-ta-UhE" secondAttribute="centerY" id="7fk-4a-wp3"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="k6g-ei-1gC" secondAttribute="trailing" constant="-8" id="lkS-z2-wzc"/>
+                                        <constraint firstItem="k6g-ei-1gC" firstAttribute="leading" secondItem="f1m-ta-UhE" secondAttribute="leadingMargin" constant="12" id="md9-ns-DP9"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="subviews">
                                             <exclude reference="k6g-ei-1gC"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <exclude reference="J0P-Up-3An"/>
-                                            <exclude reference="PCi-or-3XW"/>
-                                            <exclude reference="ThW-3w-lzW"/>
+                                            <exclude reference="7fk-4a-wp3"/>
+                                            <exclude reference="lkS-z2-wzc"/>
+                                            <exclude reference="md9-ns-DP9"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=regular">
@@ -397,9 +397,9 @@
                                             <include reference="k6g-ei-1gC"/>
                                         </mask>
                                         <mask key="constraints">
-                                            <include reference="J0P-Up-3An"/>
-                                            <include reference="PCi-or-3XW"/>
-                                            <include reference="ThW-3w-lzW"/>
+                                            <include reference="7fk-4a-wp3"/>
+                                            <include reference="lkS-z2-wzc"/>
+                                            <include reference="md9-ns-DP9"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -517,7 +517,7 @@
     </scenes>
     <resources>
         <image name="menu" width="22" height="22"/>
-        <image name="shard.png" width="400" height="800"/>
+        <image name="shard" width="400" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sgP-Rb-YDY"/>

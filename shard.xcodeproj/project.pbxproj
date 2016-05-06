@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		0F0D125E1CDBA5130013B494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D125C1CDBA5130013B494 /* Main.storyboard */; };
 		0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */; };
-		0F26CD671CD7F834001078C6 /* shard.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F26CD661CD7F834001078C6 /* shard.png */; };
 		0F26CD691CD8467B001078C6 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD681CD8467B001078C6 /* Server.swift */; };
 		0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */; };
 		0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6C1CD847D0001078C6 /* Constants.swift */; };
 		0F26CD6F1CD851EF001078C6 /* SelfPopulatingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6E1CD851EF001078C6 /* SelfPopulatingRepository.swift */; };
+		0F27FA8A1CDC4C3C008AF441 /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27FA891CDC4C3C008AF441 /* MovieRepository.swift */; };
+		0F27FA8C1CDC4C55008AF441 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27FA8B1CDC4C55008AF441 /* Video.swift */; };
+		0F27FA901CDC4FD9008AF441 /* VideoMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27FA8F1CDC4FD9008AF441 /* VideoMedia.swift */; };
+		0F27FA921CDC4FE5008AF441 /* VideoMediaPart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F27FA911CDC4FE5008AF441 /* VideoMediaPart.swift */; };
 		0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F332CE51CC6A5E600D6452C /* LoginViewController.swift */; };
 		0F332CE81CC6A66200D6452C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F332CE71CC6A66200D6452C /* User.swift */; };
 		0F5E752B1CC6748400A17F71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E752A1CC6748400A17F71 /* AppDelegate.swift */; };
@@ -35,11 +38,14 @@
 		0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shard-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
 		0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
-		0F26CD661CD7F834001078C6 /* shard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shard.png; sourceTree = "<group>"; };
 		0F26CD681CD8467B001078C6 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerRepository.swift; sourceTree = "<group>"; };
 		0F26CD6C1CD847D0001078C6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0F26CD6E1CD851EF001078C6 /* SelfPopulatingRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfPopulatingRepository.swift; sourceTree = "<group>"; };
+		0F27FA891CDC4C3C008AF441 /* MovieRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
+		0F27FA8B1CDC4C55008AF441 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		0F27FA8F1CDC4FD9008AF441 /* VideoMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMedia.swift; sourceTree = "<group>"; };
+		0F27FA911CDC4FE5008AF441 /* VideoMediaPart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoMediaPart.swift; sourceTree = "<group>"; };
 		0F332CE51CC6A5E600D6452C /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0F332CE71CC6A66200D6452C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0F5E75271CC6748400A17F71 /* shard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = shard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,12 +75,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F26CD651CD7F80E001078C6 /* Images */ = {
+		0F27FA8D1CDC4D5F008AF441 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				0F26CD661CD7F834001078C6 /* shard.png */,
+				0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */,
+				0F27FA8E1CDC4D82008AF441 /* SWReveal */,
 			);
-			name = Images;
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		0F27FA8E1CDC4D82008AF441 /* SWReveal */ = {
+			isa = PBXGroup;
+			children = (
+				0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */,
+				0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */,
+			);
+			name = SWReveal;
 			sourceTree = "<group>";
 		};
 		0F332CE91CC6A66800D6452C /* Model */ = {
@@ -86,6 +102,10 @@
 				0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */,
 				0FD26A441CDBC15000724122 /* Library.swift */,
 				0FD26A461CDBC16B00724122 /* LibraryRepository.swift */,
+				0F27FA8B1CDC4C55008AF441 /* Video.swift */,
+				0F27FA8F1CDC4FD9008AF441 /* VideoMedia.swift */,
+				0F27FA911CDC4FE5008AF441 /* VideoMediaPart.swift */,
+				0F27FA891CDC4C3C008AF441 /* MovieRepository.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -97,9 +117,6 @@
 				0FD26A3D1CDBB01100724122 /* Navigation */,
 				0FD26A421CDBBB1700724122 /* OnDeckViewController.swift */,
 				0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */,
-				0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */,
-				0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */,
-				0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -132,12 +149,12 @@
 			isa = PBXGroup;
 			children = (
 				0F26CD6C1CD847D0001078C6 /* Constants.swift */,
-				0F26CD651CD7F80E001078C6 /* Images */,
 				0F332CE91CC6A66800D6452C /* Model */,
 				0F332CEA1CC6AC6200D6452C /* Controller */,
 				0F332CEB1CC6AC6D00D6452C /* View */,
-				0F5E75341CC6748400A17F71 /* Assets.xcassets */,
+				0F27FA8D1CDC4D5F008AF441 /* Libraries */,
 				0F5E75361CC6748400A17F71 /* LaunchScreen.storyboard */,
+				0F5E75341CC6748400A17F71 /* Assets.xcassets */,
 				0F5E752A1CC6748400A17F71 /* AppDelegate.swift */,
 				0F5E75391CC6748400A17F71 /* Info.plist */,
 				0F5E75311CC6748400A17F71 /* shard.xcdatamodeld */,
@@ -216,7 +233,6 @@
 			files = (
 				0F5E75381CC6748400A17F71 /* LaunchScreen.storyboard in Resources */,
 				0F5E75351CC6748400A17F71 /* Assets.xcassets in Resources */,
-				0F26CD671CD7F834001078C6 /* shard.png in Resources */,
 				0F0D125E1CDBA5130013B494 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,8 +244,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F27FA8C1CDC4C55008AF441 /* Video.swift in Sources */,
 				0FD26A3C1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift in Sources */,
 				0F26CD691CD8467B001078C6 /* Server.swift in Sources */,
+				0F27FA921CDC4FE5008AF441 /* VideoMediaPart.swift in Sources */,
+				0F27FA8A1CDC4C3C008AF441 /* MovieRepository.swift in Sources */,
 				0FD26A451CDBC15000724122 /* Library.swift in Sources */,
 				0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */,
 				0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */,
@@ -240,6 +259,7 @@
 				0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */,
 				0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */,
 				0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */,
+				0F27FA901CDC4FD9008AF441 /* VideoMedia.swift in Sources */,
 				0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */,
 				0FA6690D1CDC3F3900C9527C /* ButtonCell.swift in Sources */,
 				0F26CD6F1CD851EF001078C6 /* SelfPopulatingRepository.swift in Sources */,

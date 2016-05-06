@@ -5,16 +5,23 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "video"
 
 class MovieLibraryCollectionViewController: UICollectionViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    var refreshControl = UIRefreshControl()
+    var observedClass : MediaRepository = MediaRepository()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadObservers()
+        
+        refreshControl.addTarget(self, action: #selector(reload), forControlEvents: .ValueChanged)
+        collectionView?.addSubview(refreshControl)
+        collectionView?.alwaysBounceVertical = true
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -36,19 +43,31 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func reload() {
+        if(libraries.foundResults == true && libraries.results.count > 0) {
+            libraries.results[libraries.selectedLibrary].contents.get(servers.selectedServer, library: libraries.selectedLibrary)
+        }
+    }
+    
     func loadObservers() {
-        libraries.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        if(libraries.results.count > 0) {
+            //observedClass = libraries.results[libraries.selectedLibrary].contents
+            libraries.results[libraries.selectedLibrary].contents.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
-        if(libraries.foundResults == true) {
-            //menuButton.enabled = true
+        print("observer fired")
+        
+        if(libraries.foundResults == true && libraries.results.count > 0) {
+            collectionView!.reloadData()
+            refreshControl.endRefreshing()
         }
     }
     
     deinit {
-        libraries.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        //observedClass.removeObserver(self, forKeyPath: "foundResults", context: nil)
     }
 
     /*
@@ -65,13 +84,16 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
-
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        if(libraries.results.count > 0 && libraries.selectedLibrary < libraries.results.count) {
+            return libraries.results[libraries.selectedLibrary].contents.count()
+        } else {
+            return 0
+        }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

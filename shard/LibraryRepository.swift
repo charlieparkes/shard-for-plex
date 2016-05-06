@@ -16,6 +16,7 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
     dynamic var foundResults = false
     var results : [Library] = []
     var serverIndex : Int = 0
+    var selectedLibrary : Int = 0
     var parser : NSXMLParser = NSXMLParser()
     
     private override init() {

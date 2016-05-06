@@ -102,4 +102,8 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     func processResponse(data : NSData) {
         print("as generic")
     }
+    
+    func count() -> Int {
+        return 0
+    }
 }

@@ -11,6 +11,10 @@ class MovieRepository : MediaRepository {
     
     var results : [Movie] = []
     
+    override func count() -> Int {
+        return results.count
+    }
+    
     override func processResponse(data : NSData) {
         
         print("as movies")

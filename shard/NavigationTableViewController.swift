@@ -74,6 +74,7 @@ class NavigationTableViewController: UITableViewController {
         if indexPath.section == 0 {
             servers.selectedServer = indexPath.row
         } else if indexPath.section == 1 {
+            libraries.selectedLibrary = indexPath.row
             libraries.results[indexPath.row].contents.get(servers.selectedServer, library: indexPath.row)
         } else if indexPath.section == 2 {
             user.logout()

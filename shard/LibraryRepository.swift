@@ -27,6 +27,7 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         if(observersLoaded == false) {
             observersLoaded = true
             servers.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+            servers.addObserver(self, forKeyPath: "selectedServer", options: Constants.KVO_Options, context: nil)
         }
     }
     
@@ -35,16 +36,19 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         //print("ServerRepository: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
         
         if keyPath == "foundResults" && servers.foundResults == true && servers.results.count > 0 {
-            get(0) // update to reflect selected server
+            get(servers.selectedServer) // update to reflect selected server
+        } else if keyPath == "selectedServer" {
+            get(servers.selectedServer)
         }
     
     }
     
     deinit {
         servers.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        servers.removeObserver(self, forKeyPath: "selectedServer", context: nil)
     }
     
-    func get(serverIndex : Int) {
+    func get(index : Int) {
         
         if(user.loggedin == false || user.authentication_token == "" || servers.results.count == 0) {
             print("Tried to get libraries, but there were no servers to query.")
@@ -56,7 +60,7 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
-        config.HTTPAdditionalHeaders = ["X-Plex-Token" : user.authentication_token,
+        config.HTTPAdditionalHeaders = ["X-Plex-Token" : servers.results[index].accessToken,
                                         "X-Plex-Platform" : "iOS",
                                         "X-Plex-Platform-Version" : Constants.systemVersion,
                                         "X-Plex-Device" : Constants.model,
@@ -69,8 +73,8 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
-        //let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[serverIndex].getURL())\(Constants.WEB_API.sections)")!)
-        let request = NSMutableURLRequest(URL: NSURL(string: "\(Constants.PLEX_API.sections)")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[index].getURL())\(Constants.WEB_API.sections)")!)
+        //let request = NSMutableURLRequest(URL: NSURL(string: "\(Constants.PLEX_API.sections)")!)
         request.HTTPMethod = "GET"
         let task = session.downloadTaskWithRequest(request)
         task.resume()
@@ -124,7 +128,12 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
     
     func parserDidEndDocument(parser: NSXMLParser) {
         if results.count > 0 {
-            print("Found \(results.count) libraries on your plex account.\"")
+            print("Found \(results.count) libraries.")
+            
+            for library in results {
+                print("\t\(library.title)")
+            }
+            
             foundResults = true
         }
         queryInProgress = false

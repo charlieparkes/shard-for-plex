@@ -26,6 +26,7 @@ class Server : NSObject {
     var version = ""
     var createdAt = ""
     var updatedAt = ""
+    var accessToken = ""
     
     func getURL() -> String {
         return scheme + "://" + address + ":" + port

@@ -29,7 +29,6 @@ class NavigationTableViewController: UITableViewController {
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
-        print("nav observer fired.")
         tableView.reloadData()
         
     }
@@ -42,8 +41,7 @@ class NavigationTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,6 +50,8 @@ class NavigationTableViewController: UITableViewController {
             return servers.results.count
         } else if section == 1 {
             return libraries.results.count
+        } else if section == 2 {
+            return 1 // logout
         } else {
             return 0
         }
@@ -66,6 +66,12 @@ class NavigationTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        if indexPath.section == 0 {
+            servers.selectedServer = indexPath.row
+        } else if indexPath.section == 2 {
+            user.logout()
+        }
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -73,6 +79,8 @@ class NavigationTableViewController: UITableViewController {
             return "Servers"
         } else if section == 1 {
             return "Libraries"
+        } else if section == 2 {
+            return "Account"
         } else {
             return ""
         }
@@ -108,6 +116,12 @@ class NavigationTableViewController: UITableViewController {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("library", forIndexPath: indexPath) as! LibraryCell
             cell.name.text = libraries.results[indexPath.row].title
+            return cell
+            
+        } else if indexPath.section == 2 {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("button", forIndexPath: indexPath) as! ButtonCell
+            cell.name.text = "Logout"
             return cell
             
         } else {

@@ -14,6 +14,7 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
     
     var queryInProgress = false
     dynamic var foundResults = false
+    dynamic var selectedServer = 0
     var results : [Server] = []
     var parser : NSXMLParser = NSXMLParser()
     

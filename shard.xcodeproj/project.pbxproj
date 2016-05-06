@@ -20,6 +20,7 @@
 		0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F5E75311CC6748400A17F71 /* shard.xcdatamodeld */; };
 		0F5E75351CC6748400A17F71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F5E75341CC6748400A17F71 /* Assets.xcassets */; };
 		0F5E75381CC6748400A17F71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F5E75361CC6748400A17F71 /* LaunchScreen.storyboard */; };
+		0FA6690D1CDC3F3900C9527C /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA6690C1CDC3F3900C9527C /* ButtonCell.swift */; };
 		0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A391CDBAC7200724122 /* NavigationTableViewController.swift */; };
 		0FD26A3C1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */; };
 		0FD26A3F1CDBB03D00724122 /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A3E1CDBB03D00724122 /* ServerCell.swift */; };
@@ -47,6 +48,7 @@
 		0F5E75341CC6748400A17F71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0F5E75371CC6748400A17F71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0F5E75391CC6748400A17F71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0FA6690C1CDC3F3900C9527C /* ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		0FD26A391CDBAC7200724122 /* NavigationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTableViewController.swift; sourceTree = "<group>"; };
 		0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieLibraryCollectionViewController.swift; sourceTree = "<group>"; };
 		0FD26A3E1CDBB03D00724122 /* ServerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
@@ -93,8 +95,8 @@
 			children = (
 				0F332CE51CC6A5E600D6452C /* LoginViewController.swift */,
 				0FD26A3D1CDBB01100724122 /* Navigation */,
-				0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */,
 				0FD26A421CDBBB1700724122 /* OnDeckViewController.swift */,
+				0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */,
 				0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */,
 				0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */,
 				0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */,
@@ -149,6 +151,7 @@
 				0FD26A391CDBAC7200724122 /* NavigationTableViewController.swift */,
 				0FD26A3E1CDBB03D00724122 /* ServerCell.swift */,
 				0FD26A401CDBB04F00724122 /* LibraryCell.swift */,
+				0FA6690C1CDC3F3900C9527C /* ButtonCell.swift */,
 			);
 			name = Navigation;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 				0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */,
 				0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */,
 				0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */,
+				0FA6690D1CDC3F3900C9527C /* ButtonCell.swift in Sources */,
 				0F26CD6F1CD851EF001078C6 /* SelfPopulatingRepository.swift in Sources */,
 				0FD26A3F1CDBB03D00724122 /* ServerCell.swift in Sources */,
 				0F5E752B1CC6748400A17F71 /* AppDelegate.swift in Sources */,

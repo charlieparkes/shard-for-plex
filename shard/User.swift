@@ -30,15 +30,18 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
         set {
             print("Set token \"\(newValue)\"")
             token = newValue
-            loggedin = checkLogin()
-            defaults.setObject(newValue, forKey: defaults_token_key)
+            if(newValue == "") {
+                loggedin = false
+                defaults.removeObjectForKey(defaults_token_key)
+            } else {
+                loggedin = checkLogin(newValue)
+                defaults.setObject(newValue, forKey: defaults_token_key)
+            }
         }
     }
     
     private override init () {
-        
         super.init()
-        authentication_token = "" // FOR DEBUG
     }
     
     func pullExistingUser() {
@@ -50,7 +53,11 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
         }
     }
     
-    func checkLogin() -> Bool {
+    func logout() {
+        authentication_token = ""
+    }
+    
+    func checkLogin(token : String) -> Bool {
         // if authentication_token is valid... (query plex)
         print("DEBUG: need to verify stored token!")
         return true
@@ -122,6 +129,7 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
                     for (k,v) in jsonData["user"] as! Dictionary<String, AnyObject> {
                         
                         if self.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                            print("Setting \(k) to \(v).")
                             self.setValue(v, forKey: k)
                         }
                     }

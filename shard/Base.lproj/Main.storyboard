@@ -363,6 +363,50 @@
                                     <segue destination="9Wa-5N-cdt" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="0AW-IF-Dno"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="button" id="32d-ap-idc" customClass="ButtonCell" customModule="shard" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="32d-ap-idc" id="f1m-ta-UhE">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{button title}" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6g-ei-1gC">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" name="selectedMenuItemColor" catalog="System" colorSpace="catalog"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="k6g-ei-1gC" firstAttribute="centerY" secondItem="f1m-ta-UhE" secondAttribute="centerY" id="J0P-Up-3An"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="k6g-ei-1gC" secondAttribute="trailing" id="PCi-or-3XW"/>
+                                        <constraint firstItem="k6g-ei-1gC" firstAttribute="leading" secondItem="f1m-ta-UhE" secondAttribute="leadingMargin" id="ThW-3w-lzW"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="subviews">
+                                            <exclude reference="k6g-ei-1gC"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <exclude reference="J0P-Up-3An"/>
+                                            <exclude reference="PCi-or-3XW"/>
+                                            <exclude reference="ThW-3w-lzW"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular">
+                                        <mask key="subviews">
+                                            <include reference="k6g-ei-1gC"/>
+                                        </mask>
+                                        <mask key="constraints">
+                                            <include reference="J0P-Up-3An"/>
+                                            <include reference="PCi-or-3XW"/>
+                                            <include reference="ThW-3w-lzW"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="name" destination="k6g-ei-1gC" id="oDi-d7-w6E"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="jCD-mh-qV4" id="PCT-1d-aHh"/>

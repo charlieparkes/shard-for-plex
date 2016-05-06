@@ -38,7 +38,10 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         if keyPath == "foundResults" && servers.foundResults == true && servers.results.count > 0 {
             get(servers.selectedServer) // update to reflect selected server
         } else if keyPath == "selectedServer" {
-            get(servers.selectedServer)
+            let old = change![NSKeyValueChangeOldKey] as! Int
+            if old != servers.selectedServer {
+                get(servers.selectedServer)
+            }
         }
     
     }

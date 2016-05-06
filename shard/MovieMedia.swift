@@ -6,15 +6,17 @@
 
 import Foundation
 
-class VideoMediaPart {
+class MovieMedia {
     
+    var parts : [VideoMediaPart] = []
+    
+    var videoResolution = ""
     var id = ""
-    var key = ""
     var duration = ""
-    var file = ""
-    var size = ""
-    var container = ""
-    var indexes = ""
+    var bitrate = ""
+    var width = ""
+    var height = ""
+    var aspectRatio = ""
     var optimizedForStreaming = ""
     var videoProfile = ""
     

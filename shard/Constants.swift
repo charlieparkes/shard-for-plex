@@ -22,6 +22,7 @@ struct Constants {
     struct PLEX_API {
         static let signin : String = "https://plex.tv/users/sign_in.json"
         static let servers : String = "https://plex.tv/pms/servers.xml"
+        static let sections : String = "https://plex.tv/pms/system/library/sections"
     }
     
     struct WEB_API {

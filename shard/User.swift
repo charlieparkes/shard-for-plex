@@ -19,7 +19,8 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
     dynamic var loggedin : Bool = false
     dynamic var loginerror : Bool = false
     var loginerrormessage : String = ""
-    //dynamic var username = ""
+    
+    dynamic var username = ""
     dynamic var token = ""
     
     dynamic var authentication_token : String {
@@ -37,7 +38,7 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
     private override init () {
         
         super.init()
-        //authentication_token = "" // FOR DEBUG
+        authentication_token = "" // FOR DEBUG
     }
     
     func pullExistingUser() {

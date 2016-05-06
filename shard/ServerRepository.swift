@@ -118,7 +118,7 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
                 }
             }
             
-            print("Found \"\(server.name)\" at \(server.scheme)://\(server.address):\(server.port)")
+            print("Found \"\(server.name)\" at \(server.scheme)://\(server.address):\(server.port) - \(server.machineIdentifier)")
             results.append(server)
         }
     }

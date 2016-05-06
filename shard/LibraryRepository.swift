@@ -3,6 +3,8 @@
  This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
  */
 
+//https://forums.plex.tv/discussion/40688/retrieving-a-plex-media-servers-x-plex-token-using-the-myplex-api
+
 import Foundation
 
 class LibraryRepository : NSObject, SelfPopulatingRepository {
@@ -67,7 +69,8 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
-        let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[serverIndex].getURL())\(Constants.WEB_API.sections)")!)
+        //let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[serverIndex].getURL())\(Constants.WEB_API.sections)")!)
+        let request = NSMutableURLRequest(URL: NSURL(string: "\(Constants.PLEX_API.sections)")!)
         request.HTTPMethod = "GET"
         let task = session.downloadTaskWithRequest(request)
         task.resume()
@@ -121,6 +124,7 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
     
     func parserDidEndDocument(parser: NSXMLParser) {
         if results.count > 0 {
+            print("Found \(results.count) libraries on your plex account.\"")
             foundResults = true
         }
         queryInProgress = false

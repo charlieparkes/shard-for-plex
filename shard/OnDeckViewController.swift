@@ -12,6 +12,9 @@ class OnDeckViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadObservers()
+        //menuButton.enabled = false
+        
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -22,6 +25,21 @@ class OnDeckViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func loadObservers() {
+        libraries.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        if(libraries.foundResults == true) {
+            //menuButton.enabled = true
+        }
+    }
+    
+    deinit {
+        libraries.removeObserver(self, forKeyPath: "foundResults", context: nil)
     }
 
     /*

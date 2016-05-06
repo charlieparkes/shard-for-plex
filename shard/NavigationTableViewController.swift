@@ -15,6 +15,7 @@ class NavigationTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadObservers()
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +29,7 @@ class NavigationTableViewController: UITableViewController {
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
+        print("nav observer fired.")
         tableView.reloadData()
         
     }
@@ -78,10 +80,14 @@ class NavigationTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if section == 0 {
-            return ""
+            if servers.results.count == 0 {
+                return "No servers found."
+            } else {
+                return ""
+            }
         } else if section == 1 {
             if libraries.results.count == 0 {
-                return "No libraries found. :'("
+                return "No libraries found."
             } else {
                 return ""
             }

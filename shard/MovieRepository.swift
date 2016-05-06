@@ -7,91 +7,13 @@
 
 import Foundation
 
-class MovieRepository : MediaRepository, SelfPopulatingRepository {
+class MovieRepository : MediaRepository {
     
-    var observersLoaded : Bool = false
-    
-    var queryInProgress = false
-    dynamic var foundResults = false
     var results : [Movie] = []
-    var libraryIndex : Int = 0
-    var parser : NSXMLParser = NSXMLParser()
     
-    override init() {
-        super.init()
+    override func processResponse(data : NSData) {
         
-        loadObservers()
-    }
-    
-    func loadObservers() {
-    }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
-        //print("ServerRepository: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
-        
-        
-    }
-    
-    deinit {
-    }
-    
-    func get(server : Int, library : Int) {
-        
-        if(user.loggedin == false || user.authentication_token == "" || servers.results.count == 0 || libraries.results.count == 0) {
-            print("Tried to get movies, but there were no servers to query.")
-            return
-        }
-        
-        foundResults = false
-        queryInProgress = true
-        libraryIndex = library
-        
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        
-        config.HTTPAdditionalHeaders = ["X-Plex-Token" : servers.results[server].accessToken,
-                                        "X-Plex-Platform" : "iOS",
-                                        "X-Plex-Platform-Version" : Constants.systemVersion,
-                                        "X-Plex-Device" : Constants.model,
-                                        "X-Plex-Device-Name" : Constants.name,
-                                        "X-Plex-Client-Identifier" : Constants.uniqueID,
-                                        "X-Plex-Product" : Constants.product,
-                                        "X-Plex-Version" : Constants.version]
-        
-        //print(config.HTTPAdditionalHeaders)
-        
-        let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
-        
-        let url = "\(servers.results[server].getURL())\(Constants.WEB_API.sections)/\(libraries.results[library].key)/all"
-        print(url)
-        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-        
-        request.HTTPMethod = "GET"
-        let task = session.downloadTaskWithRequest(request)
-        task.resume()
-    }
-    
-    // Download in progress.
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-    }
-    
-    // Download complete with error.
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        if(error != nil) {
-            print("DEBUG: download completed with error")
-        }
-    }
-    
-    // Download complete.
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        
-        let data = NSData(contentsOfURL: location)!
-        NSOperationQueue.mainQueue().addOperationWithBlock({
-            self.processResponse(data)
-        })
-    }
-    
-    func processResponse(data : NSData) {
+        print("as movies")
         
         //let string = NSString(data: data, encoding: NSASCIIStringEncoding)
         
@@ -114,9 +36,9 @@ class MovieRepository : MediaRepository, SelfPopulatingRepository {
                 }
             }
             
-        } else if elementName == "Media" {
+        } else if elementName == "Media" && results.count > 0{
             
-            results.last!.media.append(MovieMedia())
+            results.last!.media.append(MovieMedia()) //(results.last! as! Movie)
             
             for (k,v) in attributeDict {
                 
@@ -125,7 +47,7 @@ class MovieRepository : MediaRepository, SelfPopulatingRepository {
                 }
             }
             
-        } else if elementName == "Part" {
+        } else if elementName == "Part" && results.count > 0 && results.last!.media.count > 0 {
             
             let part = MovieMediaPart()
             

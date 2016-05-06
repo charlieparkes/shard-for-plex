@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0F0D125E1CDBA5130013B494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D125C1CDBA5130013B494 /* Main.storyboard */; };
 		0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */; };
+		0F1D13861CDD054C0039EFB7 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D13851CDD054C0039EFB7 /* Media.swift */; };
+		0F1D13881CDD0DC30039EFB7 /* ShowRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D13871CDD0DC30039EFB7 /* ShowRepository.swift */; };
+		0F1D138A1CDD0DE90039EFB7 /* MusicRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D13891CDD0DE90039EFB7 /* MusicRepository.swift */; };
 		0F26CD691CD8467B001078C6 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD681CD8467B001078C6 /* Server.swift */; };
 		0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */; };
 		0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6C1CD847D0001078C6 /* Constants.swift */; };
@@ -39,6 +42,9 @@
 		0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shard-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
 		0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
+		0F1D13851CDD054C0039EFB7 /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		0F1D13871CDD0DC30039EFB7 /* ShowRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowRepository.swift; sourceTree = "<group>"; };
+		0F1D13891CDD0DE90039EFB7 /* MusicRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicRepository.swift; sourceTree = "<group>"; };
 		0F26CD681CD8467B001078C6 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerRepository.swift; sourceTree = "<group>"; };
 		0F26CD6C1CD847D0001078C6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -77,6 +83,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F1D138B1CDD0DFD0039EFB7 /* Media Types */ = {
+			isa = PBXGroup;
+			children = (
+				0F1D13851CDD054C0039EFB7 /* Media.swift */,
+				0F27FA8B1CDC4C55008AF441 /* Movie.swift */,
+				0F27FA8F1CDC4FD9008AF441 /* MovieMedia.swift */,
+				0F27FA911CDC4FE5008AF441 /* MovieMediaPart.swift */,
+			);
+			name = "Media Types";
+			sourceTree = "<group>";
+		};
 		0F27FA8D1CDC4D5F008AF441 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,10 +122,10 @@
 				0FD26A441CDBC15000724122 /* Library.swift */,
 				0FD26A461CDBC16B00724122 /* LibraryRepository.swift */,
 				0FE0DBE31CDCF12000067318 /* MediaRepository.swift */,
-				0F27FA8B1CDC4C55008AF441 /* Movie.swift */,
-				0F27FA8F1CDC4FD9008AF441 /* MovieMedia.swift */,
-				0F27FA911CDC4FE5008AF441 /* MovieMediaPart.swift */,
+				0F1D138B1CDD0DFD0039EFB7 /* Media Types */,
 				0F27FA891CDC4C3C008AF441 /* MovieRepository.swift */,
+				0F1D13871CDD0DC30039EFB7 /* ShowRepository.swift */,
+				0F1D13891CDD0DE90039EFB7 /* MusicRepository.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -253,15 +270,18 @@
 				0F27FA921CDC4FE5008AF441 /* MovieMediaPart.swift in Sources */,
 				0F27FA8A1CDC4C3C008AF441 /* MovieRepository.swift in Sources */,
 				0FD26A451CDBC15000724122 /* Library.swift in Sources */,
+				0F1D13861CDD054C0039EFB7 /* Media.swift in Sources */,
 				0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */,
 				0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */,
 				0FD26A431CDBBB1700724122 /* OnDeckViewController.swift in Sources */,
 				0FD26A411CDBB04F00724122 /* LibraryCell.swift in Sources */,
 				0FD26A471CDBC16C00724122 /* LibraryRepository.swift in Sources */,
 				0F332CE81CC6A66200D6452C /* User.swift in Sources */,
+				0F1D138A1CDD0DE90039EFB7 /* MusicRepository.swift in Sources */,
 				0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */,
 				0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */,
 				0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */,
+				0F1D13881CDD0DC30039EFB7 /* ShowRepository.swift in Sources */,
 				0F27FA901CDC4FD9008AF441 /* MovieMedia.swift in Sources */,
 				0FE0DBE41CDCF12000067318 /* MediaRepository.swift in Sources */,
 				0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */,

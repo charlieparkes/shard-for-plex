@@ -17,6 +17,10 @@ class NavigationTableViewController: UITableViewController {
         super.viewDidLoad()
         loadObservers()
     }
+    
+    func refresh() {
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

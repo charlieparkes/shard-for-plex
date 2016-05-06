@@ -239,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="81" y="442.5"/>
+            <point key="canvasLocation" x="-279" y="442.5"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="mpe-zW-dby">
@@ -409,8 +409,8 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="jCD-mh-qV4" id="PCT-1d-aHh"/>
-                            <outlet property="delegate" destination="jCD-mh-qV4" id="6x0-VO-VHD"/>
+                            <outlet property="dataSource" destination="jCD-mh-qV4" id="mzK-qS-K9l"/>
+                            <outlet property="delegate" destination="jCD-mh-qV4" id="bEN-Qh-B4p"/>
                         </connections>
                     </tableView>
                 </tableViewController>
@@ -445,7 +445,25 @@
                     <view key="view" contentMode="scaleToFill" id="wuL-Sc-lVC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="090-Ur-7X3">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="64" width="600" height="166"/>
+                                </variation>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="090-Ur-7X3"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="090-Ur-7X3"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="7Gz-AU-QwH">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="a4U-3x-MUQ"/>

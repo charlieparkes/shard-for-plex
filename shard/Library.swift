@@ -23,5 +23,5 @@ class Library : NSObject {
     var updatedAt = ""
     var createdAt = ""
     
-    var contents = MovieRepository()
+    var contents = MediaRepository()
 }

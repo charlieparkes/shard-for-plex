@@ -15,7 +15,6 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
         
         loadObservers()
-        //menuButton.enabled = false
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()

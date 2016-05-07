@@ -5,7 +5,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "video"
+private let reuseIdentifier = "VideoCell"
 
 class MovieLibraryCollectionViewController: UICollectionViewController {
 
@@ -13,11 +13,10 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     
     var refreshControl = UIRefreshControl()
     var observedClass : MediaRepository = MediaRepository()
+    var observersActive : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadObservers()
         
         refreshControl.addTarget(self, action: #selector(reload), forControlEvents: .ValueChanged)
         collectionView?.addSubview(refreshControl)
@@ -29,45 +28,56 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
         // Register cell classes
         self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        
+        if libraries.foundResults == true && libraries.results.count > 0 {
+            observedClass = libraries.results[libraries.selectedLibrary].contents
+            loadObservers()
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func reload() {
-        if(libraries.foundResults == true && libraries.results.count > 0) {
-            libraries.results[libraries.selectedLibrary].contents.get(servers.selectedServer, library: libraries.selectedLibrary)
+        if(servers.foundResults == true && libraries.foundResults == true && libraries.results.count > 0) {
+            observedClass.get(servers.selectedServer, library: libraries.selectedLibrary)
         }
     }
     
     func loadObservers() {
         if(libraries.results.count > 0) {
-            //observedClass = libraries.results[libraries.selectedLibrary].contents
-            libraries.results[libraries.selectedLibrary].contents.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+            observersActive = true
+            observedClass.addObserver(self, forKeyPath: "deinitCanary", options: Constants.KVO_Options, context: nil)
+            observedClass.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
         }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
-        print("observer fired")
+        if keyPath == "deinitCanary" {
+            print("movie controller sees that it's observed media repository is deinitializing")
+            removeObservers()
+        }
         
-        if(libraries.foundResults == true && libraries.results.count > 0) {
-            collectionView!.reloadData()
+        if keyPath == "foundResults" {
+            reloadCollection()
             refreshControl.endRefreshing()
         }
     }
     
+    func removeObservers() {
+        if(observersActive) {
+            observersActive = false
+            observedClass.removeObserver(self, forKeyPath: "deinitCanary", context: nil)
+            observedClass.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        }
+    }
+    
     deinit {
-        //observedClass.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        removeObservers()
     }
 
     /*
@@ -90,19 +100,47 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         if(libraries.results.count > 0 && libraries.selectedLibrary < libraries.results.count) {
-            return libraries.results[libraries.selectedLibrary].contents.count()
+            return observedClass.count()
         } else {
             return 0
         }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! VideoCell
     
-        // Configure the cell
+        
     
         return cell
     }
+    
+    func reloadCollection() {
+        collectionView!.reloadData()
+        collectionView!.reloadSections(NSIndexSet(index: 0))
+        //for i in images.results{
+        //    loadImage(i)
+        //}
+    }
+    /*
+    func loadImage(img : Image) {
+        var url = "https://farm" + String(img.farm)
+        url += ".staticflickr.com/"+img.server
+        url += "/"+img.id+"_"+img.secret+"_s.jpg"
+        
+        //NSLog(url)
+        
+        if let checkedUrl = NSURL(string: url) {
+            getDataFromUrl(checkedUrl) { (data, response, error)  in
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    guard let d = data where error == nil else { return }
+                    img.data = d
+                    self.reloadCollection()
+                }
+            }
+        }
+    }
+ */
 
     // MARK: UICollectionViewDelegate
 

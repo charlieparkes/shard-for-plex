@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NavigationTableViewController: UITableViewController {
+class NavigationTableViewController: UITableViewController, SWRevealViewControllerDelegate {
     
     var current_row = 0
     var current_section = 0

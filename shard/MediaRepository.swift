@@ -23,6 +23,8 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     var libraryIndex : Int = 0
     var parser : NSXMLParser = NSXMLParser()
     
+    dynamic var deinitCanary = false
+    
     override init() {
         super.init()
         
@@ -35,11 +37,10 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         //print("ServerRepository: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
-        
-        
     }
     
     deinit {
+        deinitCanary = true
     }
     
     func get(server : Int, library : Int) {

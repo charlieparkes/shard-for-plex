@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F092BA91CDD84CF002CF0E1 /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F092BA81CDD84CF002CF0E1 /* VideoCell.swift */; };
 		0F0D125E1CDBA5130013B494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D125C1CDBA5130013B494 /* Main.storyboard */; };
 		0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */; };
 		0F1D13861CDD054C0039EFB7 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D13851CDD054C0039EFB7 /* Media.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F092BA81CDD84CF002CF0E1 /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		0F0D125D1CDBA5130013B494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = shard/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "shard-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
@@ -121,8 +123,8 @@
 				0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */,
 				0FD26A441CDBC15000724122 /* Library.swift */,
 				0FD26A461CDBC16B00724122 /* LibraryRepository.swift */,
-				0FE0DBE31CDCF12000067318 /* MediaRepository.swift */,
 				0F1D138B1CDD0DFD0039EFB7 /* Media Types */,
+				0FE0DBE31CDCF12000067318 /* MediaRepository.swift */,
 				0F27FA891CDC4C3C008AF441 /* MovieRepository.swift */,
 				0F1D13871CDD0DC30039EFB7 /* ShowRepository.swift */,
 				0F1D13891CDD0DE90039EFB7 /* MusicRepository.swift */,
@@ -133,10 +135,11 @@
 		0F332CEA1CC6AC6200D6452C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0F332CE51CC6A5E600D6452C /* LoginViewController.swift */,
 				0FD26A3D1CDBB01100724122 /* Navigation */,
+				0F332CE51CC6A5E600D6452C /* LoginViewController.swift */,
 				0FD26A421CDBBB1700724122 /* OnDeckViewController.swift */,
 				0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */,
+				0F092BA81CDD84CF002CF0E1 /* VideoCell.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -172,12 +175,12 @@
 				0F332CE91CC6A66800D6452C /* Model */,
 				0F332CEA1CC6AC6200D6452C /* Controller */,
 				0F332CEB1CC6AC6D00D6452C /* View */,
-				0F27FA8D1CDC4D5F008AF441 /* Libraries */,
 				0F5E75361CC6748400A17F71 /* LaunchScreen.storyboard */,
 				0F5E75341CC6748400A17F71 /* Assets.xcassets */,
 				0F5E752A1CC6748400A17F71 /* AppDelegate.swift */,
 				0F5E75391CC6748400A17F71 /* Info.plist */,
 				0F5E75311CC6748400A17F71 /* shard.xcdatamodeld */,
+				0F27FA8D1CDC4D5F008AF441 /* Libraries */,
 			);
 			path = shard;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				0F27FA8A1CDC4C3C008AF441 /* MovieRepository.swift in Sources */,
 				0FD26A451CDBC15000724122 /* Library.swift in Sources */,
 				0F1D13861CDD054C0039EFB7 /* Media.swift in Sources */,
+				0F092BA91CDD84CF002CF0E1 /* VideoCell.swift in Sources */,
 				0F332CE61CC6A5E600D6452C /* LoginViewController.swift in Sources */,
 				0F5E75331CC6748400A17F71 /* shard.xcdatamodeld in Sources */,
 				0FD26A431CDBBB1700724122 /* OnDeckViewController.swift in Sources */,

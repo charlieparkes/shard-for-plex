@@ -11,6 +11,7 @@
 		0F0D125E1CDBA5130013B494 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F0D125C1CDBA5130013B494 /* Main.storyboard */; };
 		0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */; };
 		0F1D13861CDD054C0039EFB7 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D13851CDD054C0039EFB7 /* Media.swift */; };
+		0F1D34441CDE621600C82CA7 /* MediaImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1D34431CDE621600C82CA7 /* MediaImageData.swift */; };
 		0F26CD691CD8467B001078C6 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD681CD8467B001078C6 /* Server.swift */; };
 		0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */; };
 		0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F26CD6C1CD847D0001078C6 /* Constants.swift */; };
@@ -42,6 +43,7 @@
 		0F0D12601CDBA6CD0013B494 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SWRevealViewController/SWRevealViewController.h; sourceTree = "<group>"; };
 		0F0D12611CDBA6CD0013B494 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = SWRevealViewController/SWRevealViewController.m; sourceTree = "<group>"; };
 		0F1D13851CDD054C0039EFB7 /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		0F1D34431CDE621600C82CA7 /* MediaImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaImageData.swift; sourceTree = "<group>"; };
 		0F26CD681CD8467B001078C6 /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		0F26CD6A1CD846A3001078C6 /* ServerRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerRepository.swift; sourceTree = "<group>"; };
 		0F26CD6C1CD847D0001078C6 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				0F1D13851CDD054C0039EFB7 /* Media.swift */,
+				0F1D34431CDE621600C82CA7 /* MediaImageData.swift */,
 				0F27FA8B1CDC4C55008AF441 /* Movie.swift */,
 				0F27FA8F1CDC4FD9008AF441 /* MovieMedia.swift */,
 				0F27FA911CDC4FE5008AF441 /* MovieMediaPart.swift */,
@@ -270,6 +273,7 @@
 				0FD26A431CDBBB1700724122 /* OnDeckViewController.swift in Sources */,
 				0FD26A411CDBB04F00724122 /* LibraryCell.swift in Sources */,
 				0FD26A471CDBC16C00724122 /* LibraryRepository.swift in Sources */,
+				0F1D34441CDE621600C82CA7 /* MediaImageData.swift in Sources */,
 				0F332CE81CC6A66200D6452C /* User.swift in Sources */,
 				0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */,
 				0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */,

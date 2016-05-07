@@ -25,7 +25,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     var libraryIndex : Int = 0
     var parser : NSXMLParser = NSXMLParser()
     var results : [Media] = []
-    var mediaType : String = ""
+    var type : String = ""
     
     dynamic var deinitCanary = false
     
@@ -56,7 +56,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
         foundResults = false
         queryInProgress = true
         libraryIndex = library
-        mediaType = libraries.results[library].type
+        type = libraries.results[library].type
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
@@ -115,7 +115,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
 
         
-        if mediaType == "movie" {
+        if type == "movie" {
             
             if elementName == "Video" {
                 
@@ -153,9 +153,9 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
                 (results.last! as! Movie).media.last!.parts.append(part)
             }
             
-        } else if mediaType == "show" {
+        } else if type == "show" {
 
-        } else if mediaType == "artist" {
+        } else if type == "artist" {
             
         } else {
             // type unknown
@@ -168,7 +168,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     
     func parserDidEndDocument(parser: NSXMLParser) {
         if results.count > 0 {
-            print("Found \(results.count) movies in \(servers.results[servers.selectedServer].name) -> \(libraries.results[libraryIndex].title)")
+            print("found \(results.count) \(type)s in \(servers.results[servers.selectedServer].name) -> \(libraries.results[libraryIndex].title)")
             
             foundResults = true
         }

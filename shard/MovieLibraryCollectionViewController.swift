@@ -57,11 +57,16 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         
         if keyPath == "deinitCanary" {
             removeObservers()
-        }
-        
-        if keyPath == "foundResults" {
+        } else if keyPath == "foundResults" && media.foundResults == true {
             reloadCollection()
             refreshControl.endRefreshing()
+        } else if keyPath == "imageDownloadComplete" {
+            
+            let target = object as! MediaImageData
+            
+            let path = NSIndexPath(forItem: target.item, inSection: 0)
+            self.collectionView!.reloadItemsAtIndexPaths([path])
+            object?.removeObserver(self, forKeyPath: "imageDownloadComplete")
         }
     }
     
@@ -70,6 +75,12 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
             observersActive = false
             media.removeObserver(self, forKeyPath: "deinitCanary", context: nil)
             media.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        }
+        for r in media.results {
+            if r.coverData.downloadInProgress == true {
+                r.coverData.task!.cancel()
+                r.coverData.removeObserver(self, forKeyPath: "imageDownloadComplete")
+            }
         }
     }
     
@@ -104,39 +115,61 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! VideoCell
-    
         
-    
+        if(media.results[indexPath.item].coverData.imageDownloadComplete == true) {
+            let d : NSData = media.results[indexPath.item].coverData.data
+            let i : UIImage = UIImage(data: d)!
+            cell.cover.image = i
+        }
+
         return cell
     }
     
     func reloadCollection() {
         collectionView!.reloadData()
         collectionView!.reloadSections(NSIndexSet(index: 0))
-        //for i in images.results{
-        //    loadImage(i)
-        //}
         
-        //loadImage(0)
+        for i in 0..<media.results.count {
+                loadImage(i)
+        }
     }
     
-    /*
+    
     func loadImage(index : Int) {
-        if(observedClass.count() > index) {
+        if(media.results.count > index) {
             let base = servers.results[servers.selectedServer].getURL()
             
-            if(libraries.results[libraries.selectedLibrary].type == "movie") {
-                if let media = observedClass as? MovieRepository {
-                    var url = base
-                    url += media.results[index].thumb
-                    print(url)
+            if media.type == "movie" {
+                let m = media.results[index] as! Movie
+                
+                if(m.thumb == "") {
+                    return
+                }
+                
+                var url = base
+                    url += m.thumb
+                
+                if let checkedURL = NSURL(string: url) {
+                    media.results[index].coverData.item = index
+                    media.results[index].coverData.addObserver(self, forKeyPath: "imageDownloadComplete", options: Constants.KVO_Options, context: nil)
+                    media.results[index].coverData.get(checkedURL)
+                    
+                    /*
+                    getDataFromUrl(checkedURL) { (data, response, error)  in
+                        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                            guard let d = data where error == nil else { return }
+                            media.results[index].coverData = d
+                            print(d)
+                            let path = NSIndexPath(forItem: index, inSection: 0)
+                            print("Image \(index) loaded for \(m.title)")
+                            self.collectionView!.reloadItemsAtIndexPaths([path])
+                        }
+                    }
+                    */
                 }
             }
         }
- 
-        
-        //NSLog(url)
-     
+     /*
         if let checkedUrl = NSURL(string: url) {
             getDataFromUrl(checkedUrl) { (data, response, error)  in
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -146,9 +179,15 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
                 }
             }
         }
-
+         */
     }
- */
+    
+    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+        NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
+            completion(data: data, response: response, error: error)
+            }.resume()
+    }
+ 
     
     // MARK: UICollectionViewDelegate
 

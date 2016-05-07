@@ -29,7 +29,7 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         }
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.registerClass(VideoCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         if libraries.foundResults == true && libraries.results.count > 0 {
             observedClass = libraries.results[libraries.selectedLibrary].contents
@@ -121,15 +121,25 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         //for i in images.results{
         //    loadImage(i)
         //}
+        
+        loadImage(0)
     }
-    /*
-    func loadImage(img : Image) {
-        var url = "https://farm" + String(img.farm)
-        url += ".staticflickr.com/"+img.server
-        url += "/"+img.id+"_"+img.secret+"_s.jpg"
+    
+    func loadImage(index : Int) {
+        if(observedClass.count() > index) {
+            let base = servers.results[servers.selectedServer].getURL()
+            
+            if(libraries.results[libraries.selectedLibrary].type == "movie") {
+                if let media = observedClass as? MovieRepository {
+                    var url = base
+                    url += media.results[index].thumb
+                    print(url)
+                }
+            }
+        }
         
         //NSLog(url)
-        
+        /*
         if let checkedUrl = NSURL(string: url) {
             getDataFromUrl(checkedUrl) { (data, response, error)  in
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -139,8 +149,8 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
                 }
             }
         }
-    }
  */
+    }
 
     // MARK: UICollectionViewDelegate
 

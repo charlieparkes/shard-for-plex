@@ -21,6 +21,7 @@ class Movie: Media {
     var art = ""
     var duration = ""
     var media : [MovieMedia] = []
+    var thumbData : NSData = NSData()
     //var genre : [String] = []
     //var writer : [String] = []
     //var director : [String] = []

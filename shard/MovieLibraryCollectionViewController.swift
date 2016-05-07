@@ -127,11 +127,22 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         return cell
     }
     
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate == false {
+            loadVisibleMediaImages()
+        }
+    }
+    
+    override func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        loadVisibleMediaImages()
+    }
+
     func loadVisibleMediaImages() {
-        print("loading visible images")
         if let indicies : [NSIndexPath] = collectionView!.indexPathsForVisibleItems() {
             for i in indicies {
-                loadImage(i.item)
+                if media.results[i.item].coverData.imageDownloadComplete == false && media.results[i.item].coverData.downloadInProgress == false {
+                    loadImage(i.item)
+                }
             }
         }
     }

@@ -117,19 +117,18 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! VideoCell
         
         if(media.results[indexPath.item].coverData.imageDownloadComplete == true) {
-            let d : NSData = media.results[indexPath.item].coverData.data
-            let i : UIImage = UIImage(data: d)!
-            cell.cover.image = i
+            //print("Showing image \(media.results[indexPath.item].coverData.item) in cell \(indexPath.item)")//, separator: "", terminator: "")
+
+            cell.cover.image = UIImage(data: media.results[indexPath.item].coverData.data)!
+        } else {
+            cell.cover.image = UIImage(named: "movie_cover")
         }
 
         return cell
     }
     
-    override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        //loadVisibleMediaImages()
-    }
-    
     func loadVisibleMediaImages() {
+        print("loading visible images")
         if let indicies : [NSIndexPath] = collectionView!.indexPathsForVisibleItems() {
             for i in indicies {
                 loadImage(i.item)

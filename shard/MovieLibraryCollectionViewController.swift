@@ -168,7 +168,7 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
                 var url = base
                     url += "/photo/:/transcode?url=" //path-to-image&width=50&height=50
                     url += m.thumb
-                    url += "&width=200&height=300"
+                    url += "&width=120&height=180"
                 
                 if let checkedURL = NSURL(string: url) {
                     media.results[index].coverData.item = index

@@ -125,13 +125,22 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         return cell
     }
     
+    override func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        //loadVisibleMediaImages()
+    }
+    
+    func loadVisibleMediaImages() {
+        if let indicies : [NSIndexPath] = collectionView!.indexPathsForVisibleItems() {
+            for i in indicies {
+                loadImage(i.item)
+            }
+        }
+    }
+    
     func reloadCollection() {
         collectionView!.reloadData()
         collectionView!.reloadSections(NSIndexSet(index: 0))
-        
-        for i in 0..<media.results.count {
-                loadImage(i)
-        }
+        loadVisibleMediaImages()
     }
     
     
@@ -147,7 +156,9 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
                 }
                 
                 var url = base
+                    url += "/photo/:/transcode?url=" //path-to-image&width=50&height=50
                     url += m.thumb
+                    url += "&width=200&height=300"
                 
                 if let checkedURL = NSURL(string: url) {
                     media.results[index].coverData.item = index

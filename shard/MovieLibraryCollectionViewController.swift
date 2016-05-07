@@ -12,7 +12,6 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var refreshControl = UIRefreshControl()
-    var observedClass : MediaRepository = MediaRepository()
     var observersActive : Bool = false
     
     override func viewDidLoad() {
@@ -32,7 +31,6 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         //self.collectionView!.registerClass(VideoCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         if libraries.foundResults == true && libraries.results.count > 0 {
-            observedClass = libraries.results[libraries.selectedLibrary].contents
             loadObservers()
         }
     }
@@ -43,22 +41,21 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     
     func reload() {
         if(servers.foundResults == true && libraries.foundResults == true && libraries.results.count > 0) {
-            observedClass.get(servers.selectedServer, library: libraries.selectedLibrary)
+            media.get(servers.selectedServer, library: libraries.selectedLibrary)
         }
     }
     
     func loadObservers() {
         if(libraries.results.count > 0) {
             observersActive = true
-            observedClass.addObserver(self, forKeyPath: "deinitCanary", options: Constants.KVO_Options, context: nil)
-            observedClass.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+            media.addObserver(self, forKeyPath: "deinitCanary", options: Constants.KVO_Options, context: nil)
+            media.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
         }
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         if keyPath == "deinitCanary" {
-            print("movie controller sees that it's observed media repository is deinitializing")
             removeObservers()
         }
         
@@ -71,8 +68,8 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     func removeObservers() {
         if(observersActive) {
             observersActive = false
-            observedClass.removeObserver(self, forKeyPath: "deinitCanary", context: nil)
-            observedClass.removeObserver(self, forKeyPath: "foundResults", context: nil)
+            media.removeObserver(self, forKeyPath: "deinitCanary", context: nil)
+            media.removeObserver(self, forKeyPath: "foundResults", context: nil)
         }
     }
     
@@ -93,14 +90,12 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         if(libraries.results.count > 0 && libraries.selectedLibrary < libraries.results.count) {
-            return observedClass.count()
+            return media.results.count
         } else {
             return 0
         }
@@ -122,9 +117,10 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         //    loadImage(i)
         //}
         
-        loadImage(0)
+        //loadImage(0)
     }
     
+    /*
     func loadImage(index : Int) {
         if(observedClass.count() > index) {
             let base = servers.results[servers.selectedServer].getURL()
@@ -137,9 +133,10 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
                 }
             }
         }
+ 
         
         //NSLog(url)
-        /*
+     
         if let checkedUrl = NSURL(string: url) {
             getDataFromUrl(checkedUrl) { (data, response, error)  in
                 dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -149,9 +146,10 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
                 }
             }
         }
- */
-    }
 
+    }
+ */
+    
     // MARK: UICollectionViewDelegate
 
     /*

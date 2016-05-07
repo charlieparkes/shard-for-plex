@@ -17,17 +17,20 @@ import Foundation
 
 class MediaRepository : NSObject, SelfPopulatingRepository {
     
+    static var sharedInstance : MediaRepository = MediaRepository()
+    
     var observersLoaded : Bool = false
     var queryInProgress = false
     dynamic var foundResults = false
     var libraryIndex : Int = 0
     var parser : NSXMLParser = NSXMLParser()
+    var results : [Media] = []
+    var mediaType : String = ""
     
     dynamic var deinitCanary = false
     
-    override init() {
+    private override init() {
         super.init()
-        
         loadObservers()
     }
     
@@ -53,6 +56,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
         foundResults = false
         queryInProgress = true
         libraryIndex = library
+        mediaType = libraries.results[library].type
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
@@ -101,10 +105,73 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     }
     
     func processResponse(data : NSData) {
-        print("as generic")
+        
+        results = []
+        parser = NSXMLParser(data: data)
+        parser.delegate = self
+        parser.parse()
     }
     
-    func count() -> Int {
-        return 0
+    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+
+        
+        if mediaType == "movie" {
+            
+            if elementName == "Video" {
+                
+                results.append(Movie())
+                
+                for (k,v) in attributeDict {
+                    
+                    if results.last!.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                        results.last!.setValue(v, forKey: k)
+                    }
+                }
+                
+            } else if elementName == "Media" && results.count > 0{
+                
+                (results.last! as! Movie).media.append(MovieMedia()) //(results.last! as! Movie)
+                
+                for (k,v) in attributeDict {
+                    
+                    if results.last!.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                        results.last!.setValue(v, forKey: k)
+                    }
+                }
+                
+            } else if elementName == "Part" && results.count > 0 && (results.last! as! Movie).media.count > 0 {
+                
+                let part = MovieMediaPart()
+                
+                for (k,v) in attributeDict {
+                    
+                    if part.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
+                        part.setValue(v, forKey: k)
+                    }
+                }
+                
+                (results.last! as! Movie).media.last!.parts.append(part)
+            }
+            
+        } else if mediaType == "show" {
+
+        } else if mediaType == "artist" {
+            
+        } else {
+            // type unknown
+        }
+    }
+    
+    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
+    }
+    
+    func parserDidEndDocument(parser: NSXMLParser) {
+        if results.count > 0 {
+            print("Found \(results.count) movies in \(servers.results[servers.selectedServer].name) -> \(libraries.results[libraryIndex].title)")
+            
+            foundResults = true
+        }
+        queryInProgress = false
     }
 }

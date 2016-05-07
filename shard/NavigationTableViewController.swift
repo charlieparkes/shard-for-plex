@@ -75,7 +75,7 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
             servers.selectedServer = indexPath.row
         } else if indexPath.section == 1 {
             libraries.selectedLibrary = indexPath.row
-            libraries.results[indexPath.row].contents.get(servers.selectedServer, library: indexPath.row)
+            media.get(servers.selectedServer, library: indexPath.row)
         } else if indexPath.section == 2 {
             user.logout()
         }

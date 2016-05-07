@@ -125,16 +125,6 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
                 
                 if library.respondsToSelector(Selector(k)) && !NSObject.respondsToSelector(Selector(k)) {
                     library.setValue(v, forKey: k)
-                    
-                    if(k == "type") {
-                        if(v == "movie") {
-                            library.contents = MovieRepository()
-                        } else if(v == "show") {
-                            library.contents = ShowRepository()
-                        } else if(v == "artist") {
-                            library.contents = MusicRepository()
-                        }
-                    }
                 }
             }
             

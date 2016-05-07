@@ -5,8 +5,6 @@
 
 import UIKit
 
-private let reuseIdentifier = "VideoCell"
-
 class MovieLibraryCollectionViewController: UICollectionViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -114,7 +112,7 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! VideoCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("VideoCell", forIndexPath: indexPath) as! VideoCell
         
         if(media.results[indexPath.item].coverData.imageDownloadComplete == true) {
             //print("Showing image \(media.results[indexPath.item].coverData.item) in cell \(indexPath.item)")//, separator: "", terminator: "")

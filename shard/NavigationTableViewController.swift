@@ -78,7 +78,7 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
             media.get(servers.selectedServer, library: indexPath.row)
         } else if indexPath.section == 2 {
             let ad = UIApplication.sharedApplication().delegate as! AppDelegate
-            ad.logout()
+            ad.logout(self.view)
         }
     }
 

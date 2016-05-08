@@ -32,6 +32,10 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
             loadObservers()
         }
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        //
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

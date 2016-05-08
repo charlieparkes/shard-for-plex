@@ -146,7 +146,9 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
                 }
             }
             
-            results.append(library)
+            if library.type == "movie" {
+                results.append(library)
+            }
         }
     }
     

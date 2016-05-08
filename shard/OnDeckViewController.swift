@@ -3,12 +3,13 @@
  This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
  */
 
+//https://coderwall.com/p/su1t1a/ios-customized-activity-indicator-with-swift
+
 import UIKit
 
 class OnDeckViewController: UIViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +45,7 @@ class OnDeckViewController: UIViewController {
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
         
-        //let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
         actInd.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
         actInd.activityIndicatorViewStyle =
             UIActivityIndicatorViewStyle.WhiteLarge

@@ -1,10 +1,10 @@
-//
-//  AppDelegate.swift
-//  shard
-//
-//  Created by Charles Mathews on 4/19/16.
-//  Copyright © 2016 Charlie Mathews. All rights reserved.
-//
+/*
+ Shard by Charlie Mathews & Sarah Burgess
+ This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
+ */
+
+//http://stackoverflow.com/questions/19962276/best-practices-for-storyboard-login-screen-handling-clearing-of-data-upon-logou
+
 
 import UIKit
 import CoreData
@@ -35,15 +35,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func showLibrary() {
-        self.window!.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        let root = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        root!.view.alpha = 0
+        self.window!.rootViewController = root
+        
+        UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+            root!.view.alpha = 1
+            
+            }, completion: nil )
     }
     
     func showLogin() {
         let root = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+        root.view.alpha = 0
         self.window!.rootViewController = root
+        
+        UIView.animateWithDuration(1, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+            root.view.alpha = 1
+            
+        }, completion: nil )
     }
     
-    func logout() {
+    func logout(sender: UIView) {
+        
+        /*
+        UIView.animateWithDuration(0, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+            
+                sender.alpha = 1
+            
+            }, completion: { (finished: Bool) -> Void in
+                
+            })
+         */
         
         media.clear()
         libraries.clear()

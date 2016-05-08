@@ -55,7 +55,7 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
         } else if section == 1 {
             return libraries.results.count
         } else if section == 2 {
-            return 1 // logout
+            return 2 // feedback, logout
         } else {
             return 0
         }
@@ -77,8 +77,20 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
             libraries.selectedLibrary = indexPath.row
             media.get(servers.selectedServer, library: indexPath.row)
         } else if indexPath.section == 2 {
-            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
-            ad.logout(self.view)
+            if indexPath.row == 0 {
+                
+                // send feedback email
+                let email = "charlie@charliemathews.com"
+                let url = NSURL(string: "mailto:\(email)")
+                UIApplication.sharedApplication().openURL(url!)
+                
+            } else if indexPath.row == 1 {
+                
+                // logout
+                let ad = UIApplication.sharedApplication().delegate as! AppDelegate
+                ad.logout(self.view)
+                
+            }
         }
     }
 
@@ -88,7 +100,7 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
         } else if section == 1 {
             return "Libraries"
         } else if section == 2 {
-            return "Account"
+            return ""
         } else {
             return ""
         }
@@ -129,7 +141,14 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
         } else if indexPath.section == 2 {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("button", forIndexPath: indexPath) as! ButtonCell
-            cell.name.text = "Logout"
+            
+            if(indexPath.row == 0) {
+                cell.name.text = "Report A Bug"
+            } else if(indexPath.row == 1) {
+                cell.name.text = "Logout"
+                cell.name.textColor = UIColor.redColor()
+            }
+            
             return cell
             
         } else {

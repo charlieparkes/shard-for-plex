@@ -234,12 +234,12 @@
                         <outlet property="logoImage" destination="ExN-m7-BxX" id="AdA-K4-1ne"/>
                         <outlet property="passwordField" destination="mmV-2A-VFT" id="aXN-z8-ugu"/>
                         <outlet property="usernameField" destination="o9v-UH-57V" id="nrS-Ae-eCl"/>
-                        <segue destination="XYW-fV-AMj" kind="showDetail" identifier="showLibrary" action="showViewController:sender:" id="Bi9-jR-EeV"/>
+                        <segue destination="XYW-fV-AMj" kind="showDetail" identifier="showLibrary" id="CQC-Cz-bFq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-279" y="442.5"/>
+            <point key="canvasLocation" x="-55" y="-249.75"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="mpe-zW-dby">
@@ -256,7 +256,7 @@
                     </view>
                     <connections>
                         <segue destination="jCD-mh-qV4" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="c8D-yH-JEm"/>
-                        <segue destination="9Wa-5N-cdt" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="3Dy-n5-aO1"/>
+                        <segue destination="9Wa-5N-cdt" kind="custom" identifier="" customClass="SWRevealViewControllerSegueSetController" id="3Dy-n5-aO1"/>
                         <segue destination="Lhv-Nu-2FQ" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="2Qr-vW-GOb"/>
                     </connections>
                 </viewController>
@@ -508,7 +508,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="VideoCell" id="1SO-13-Ip6" customClass="VideoCell" customModule="shard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="100" height="150"/>
+                                <rect key="frame" x="0.0" y="64" width="80" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
@@ -576,7 +576,7 @@
         <image name="shard" width="400" height="800"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sgP-Rb-YDY"/>
-        <segue reference="0AW-IF-Dno"/>
+        <segue reference="2Qr-vW-GOb"/>
+        <segue reference="3Dy-n5-aO1"/>
     </inferredMetricsTieBreakers>
 </document>

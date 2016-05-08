@@ -14,7 +14,7 @@ import Foundation
 
 class MediaRepository : NSObject, SelfPopulatingRepository {
     
-    static var sharedInstance : MediaRepository = MediaRepository()
+    //static var sharedInstance : MediaRepository = MediaRepository()
     
     var observersLoaded : Bool = false
     var queryInProgress = false
@@ -26,7 +26,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
     
     dynamic var deinitCanary = false
     
-    private override init() {
+    override init() {
         super.init()
         loadObservers()
     }

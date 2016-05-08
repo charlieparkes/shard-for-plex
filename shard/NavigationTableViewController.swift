@@ -75,7 +75,7 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
             servers.selectedServer = indexPath.row
         } else if indexPath.section == 1 {
             libraries.selectedLibrary = indexPath.row
-            media.get(servers.selectedServer, library: indexPath.row)
+            //media.get(servers.selectedServer, library: indexPath.row)
         } else if indexPath.section == 2 {
             if indexPath.row == 0 {
                 
@@ -157,7 +157,15 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
         }
     }
     
-
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showMovieLibrary" {
+            
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -190,16 +198,6 @@ class NavigationTableViewController: UITableViewController, SWRevealViewControll
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
     */
 

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         servers.loadObservers()
         libraries.loadObservers()
-        media.loadObservers()
+        //media.loadObservers()
         user.pullExistingUser()
         
         if user.loggedin == true {
@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
          */
         
-        media.clear()
+        //media.clear()
         libraries.clear()
         servers.clear()
         
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         servers.loadObservers()
         libraries.loadObservers()
-        media.loadObservers()
+        //media.loadObservers()
         
         showLogin()
     }

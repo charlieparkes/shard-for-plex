@@ -6,14 +6,72 @@
 import UIKit
 
 class MovieLibraryCollectionViewController: UICollectionViewController {
-
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    
+    var media : MediaRepository = MediaRepository()
+    var server : Int = 0
+    var library : Int = 0
+    
+    var selected_item : Int = 0
+    
+    func getIfLibraryChanged() {
+        if(servers.selectedServer != server || libraries.selectedLibrary != library) {
+            updateSelectedMedia()
+            getLibrary()
+        }
+    }
+    
+    func getLibrary() {
+        showActivityIndicatory(self.view)
+        media.get(server, library: library)
+    }
+    
+    func updateSelectedMedia() {
+        server = servers.selectedServer
+        library = libraries.selectedLibrary
+    }
     
     var refreshControl = UIRefreshControl()
     var observersActive : Bool = false
     
+    let container: UIView = UIView()
+    let loadingView: UIView = UIView()
+    let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    func showActivityIndicatory(uiView: UIView) {
+        container.frame = uiView.frame
+        container.center = uiView.center
+        container.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+        
+        loadingView.frame = CGRectMake(0, 0, 80, 80)
+        loadingView.center = uiView.center
+        loadingView.backgroundColor = UIColor(red: 0.12, green: 0.29, blue: 0.43, alpha: 0.7)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        actInd.frame = CGRectMake(0.0, 0.0, 35.0, 35.0);
+        actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.WhiteLarge
+        actInd.center = CGPointMake(loadingView.frame.size.width / 2,
+                                    loadingView.frame.size.height / 2);
+        loadingView.addSubview(actInd)
+        container.addSubview(loadingView)
+        uiView.addSubview(container)
+        actInd.startAnimating()
+    }
+    
+    func hideActivityIndicator() {
+        actInd.stopAnimating()
+        container.removeFromSuperview()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        showActivityIndicatory(self.view)
+        
+        updateSelectedMedia()
         
         refreshControl.addTarget(self, action: #selector(reload), forControlEvents: .ValueChanged)
         collectionView?.addSubview(refreshControl)
@@ -31,10 +89,12 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         if libraries.foundResults == true && libraries.results.count > 0 {
             loadObservers()
         }
+        
+        getLibrary()
     }
     
     override func viewDidAppear(animated: Bool) {
-        //
+        getIfLibraryChanged()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +103,7 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     
     func reload() {
         if(servers.foundResults == true && libraries.foundResults == true && libraries.results.count > 0) {
-            media.get(servers.selectedServer, library: libraries.selectedLibrary)
+            getLibrary()
         }
     }
     
@@ -58,10 +118,15 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         if keyPath == "deinitCanary" {
+            
             removeObservers()
+            
         } else if keyPath == "foundResults" && media.foundResults == true {
-            reloadCollection()
-            refreshControl.endRefreshing()
+            
+            self.reloadCollection()
+            self.refreshControl.endRefreshing()
+            self.hideActivityIndicator()
+            
         } else if keyPath == "imageDownloadComplete" {
             
             let target = object as! MediaImageData
@@ -90,15 +155,21 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         removeObservers()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showMovie" {
+            let backItem = UIBarButtonItem()
+            backItem.title = libraries.results[library].title
+            navigationItem.backBarButtonItem = backItem
+            
+            let dest = segue.destinationViewController as! MovieDetailViewController
+            
+            let cell = sender as! UICollectionViewCell
+            let indexPath = collectionView!.indexPathForCell(cell)
+            dest.media = media.results[indexPath!.item] as! Movie
+        }
+        
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -119,8 +190,6 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("VideoCell", forIndexPath: indexPath) as! VideoCell
         
         if(media.results[indexPath.item].coverData.imageDownloadComplete == true) {
-            //print("Showing image \(media.results[indexPath.item].coverData.item) in cell \(indexPath.item)")//, separator: "", terminator: "")
-
             cell.cover.image = UIImage(data: media.results[indexPath.item].coverData.data)!
         } else {
             cell.cover.image = UIImage(named: "movie_cover")
@@ -128,6 +197,8 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
 
         return cell
     }
+    
+    //override func collectionView
     
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if decelerate == false {

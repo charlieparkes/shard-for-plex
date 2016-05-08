@@ -8,8 +8,39 @@
 import UIKit
 
 class OnDeckViewController: UIViewController {
-
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    
+    let container: UIView = UIView()
+    let loadingView: UIView = UIView()
+    let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    func showActivityIndicatory(uiView: UIView) {
+        container.frame = uiView.frame
+        container.center = uiView.center
+        container.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0)
+        
+        loadingView.frame = CGRectMake(0, 0, 80, 80)
+        loadingView.center = uiView.center
+        loadingView.backgroundColor = UIColor(red: 0.12, green: 0.29, blue: 0.43, alpha: 0.7)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        actInd.frame = CGRectMake(0.0, 0.0, 35.0, 35.0);
+        actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.WhiteLarge
+        actInd.center = CGPointMake(loadingView.frame.size.width / 2,
+                                    loadingView.frame.size.height / 2);
+        loadingView.addSubview(actInd)
+        container.addSubview(loadingView)
+        uiView.addSubview(container)
+        actInd.startAnimating()
+    }
+    
+    func hideActivityIndicator() {
+        actInd.stopAnimating()
+        container.removeFromSuperview()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,33 +59,6 @@ class OnDeckViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func showActivityIndicatory(uiView: UIView) {
-        let container: UIView = UIView()
-        container.frame = uiView.frame
-        container.center = uiView.center
-        //container.backgroundColor = UIColorFromHex(0xffffff, alpha: 0.3)
-        container.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
-        
-        let loadingView: UIView = UIView()
-        loadingView.frame = CGRectMake(0, 0, 80, 80)
-        loadingView.center = uiView.center
-        //loadingView.backgroundColor = UIColorFromHex(0x444444, alpha: 0.7)
-        container.backgroundColor = UIColor(red: 68, green: 68, blue: 68, alpha: 0.7)
-        loadingView.clipsToBounds = true
-        loadingView.layer.cornerRadius = 10
-        
-        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-        actInd.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-        actInd.activityIndicatorViewStyle =
-            UIActivityIndicatorViewStyle.WhiteLarge
-        actInd.center = CGPointMake(loadingView.frame.size.width / 2,
-                                    loadingView.frame.size.height / 2);
-        loadingView.addSubview(actInd)
-        container.addSubview(loadingView)
-        uiView.addSubview(container)
-        actInd.startAnimating()
     }
     
     func loadObservers() {

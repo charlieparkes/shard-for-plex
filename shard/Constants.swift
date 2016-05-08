@@ -9,7 +9,7 @@ import UIKit
 let user = User.sharedInstance
 let servers = ServerRepository.sharedInstance
 let libraries = LibraryRepository.sharedInstance
-let media = MediaRepository.sharedInstance
+//let media = MediaRepository.sharedInstance
 
 struct Constants {
     

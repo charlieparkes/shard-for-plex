@@ -16,8 +16,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        servers.loadObservers()
+        libraries.loadObservers()
+        media.loadObservers()
+        user.pullExistingUser()
+        
+        if user.loggedin == true {
+            
+            showLibrary()
+            
+        } else {
+            
+            showLogin()
+        }
+ 
         return true
+    }
+    
+    func showLibrary() {
+        self.window!.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+    }
+    
+    func showLogin() {
+        let root = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("LoginViewController")
+        self.window!.rootViewController = root
+    }
+    
+    func logout() {
+        
+        media.clear()
+        libraries.clear()
+        servers.clear()
+        
+        user.logout()
+        
+        servers.loadObservers()
+        libraries.loadObservers()
+        media.loadObservers()
+        
+        showLogin()
     }
 
     func applicationWillResignActive(application: UIApplication) {

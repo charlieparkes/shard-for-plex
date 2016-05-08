@@ -25,6 +25,16 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         loadObservers()
     }
     
+    func clear() {
+        removeObservers()
+        results = []
+        parser = NSXMLParser()
+        foundResults = false
+        queryInProgress = false
+        serverIndex = 0
+        selectedLibrary = 0
+    }
+    
     func loadObservers() {
         if(observersLoaded == false) {
             observersLoaded = true
@@ -48,9 +58,17 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
     
     }
     
+    func removeObservers() {
+        if(observersLoaded == true) {
+            observersLoaded = false
+            servers.removeObserver(self, forKeyPath: "foundResults", context: nil)
+            servers.removeObserver(self, forKeyPath: "selectedServer", context: nil)
+            
+        }
+    }
+    
     deinit {
-        servers.removeObserver(self, forKeyPath: "foundResults", context: nil)
-        servers.removeObserver(self, forKeyPath: "selectedServer", context: nil)
+        removeObservers()
     }
     
     func get(server : Int) {

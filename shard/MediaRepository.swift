@@ -31,12 +31,26 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
         loadObservers()
     }
     
+    func clear() {
+        removeObservers()
+        queryInProgress = false
+        foundResults = false
+        libraryIndex = 0
+        parser = NSXMLParser()
+        results = []
+        type = ""
+    }
+    
     func loadObservers() {
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         //print("ServerRepository: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
+    }
+    
+    func removeObservers() {
+        
     }
     
     deinit {

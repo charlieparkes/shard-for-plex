@@ -24,6 +24,14 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
         loadObservers()
     }
     
+    func clear() {
+        removeObservers()
+        results = []
+        parser = NSXMLParser()
+        foundResults = false
+        queryInProgress = false
+    }
+    
     func loadObservers() {
         if(observersLoaded == false) {
             observersLoaded = true
@@ -42,8 +50,15 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
         }
     }
     
+    func removeObservers() {
+        if(observersLoaded == true) {
+            observersLoaded = false
+            user.removeObserver(self, forKeyPath: "loggedin", context: nil)
+        }
+    }
+    
     deinit {
-        user.removeObserver(self, forKeyPath: "loggedin", context: nil)
+        removeObservers()
     }
     
     func get() {

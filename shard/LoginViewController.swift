@@ -12,6 +12,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameField: UITextField!
     @IBOutlet weak var logoImage: UIImageView!
     
+    var observersActive : Bool = false
+    
     @IBAction func usernameFieldTouch(sender: AnyObject) {
     }
     
@@ -41,10 +43,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordField.delegate = self
         
         loadObservers()
-        servers.loadObservers()
-        libraries.loadObservers()
-        
-        user.pullExistingUser()
         
         if let t : String = NSUserDefaults().stringForKey(Constants.Defaults.token_key) {
             if t != "" {
@@ -190,8 +188,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func loadObservers() {
-        user.addObserver(self, forKeyPath: "loggedin", options: Constants.KVO_Options, context: nil)
-        user.addObserver(self, forKeyPath: "loginerror", options: Constants.KVO_Options, context: nil)
+        if(observersActive == false) {
+            user.addObserver(self, forKeyPath: "loggedin", options: Constants.KVO_Options, context: nil)
+            user.addObserver(self, forKeyPath: "loginerror", options: Constants.KVO_Options, context: nil)
+        }
+        observersActive = true
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
@@ -200,9 +201,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         if keyPath == "loggedin" && user.loggedin == true && user.loginerror == false {
             
+            /*
             dispatch_async(dispatch_get_main_queue(),{
                 self.performSegueWithIdentifier("showLibrary",sender: self)
             })
+            */
+            
+            let ad = UIApplication.sharedApplication().delegate as! AppDelegate
+            ad.showLibrary()
             
         } else if keyPath == "loginerror" && user.loginerror == true {
             
@@ -217,8 +223,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
 
     deinit {
-        user.removeObserver(self, forKeyPath: "loggedin", context: nil)
-        user.removeObserver(self, forKeyPath: "loginerror", context: nil)
+        if(observersActive == true) {
+            user.removeObserver(self, forKeyPath: "loggedin", context: nil)
+            user.removeObserver(self, forKeyPath: "loginerror", context: nil)
+        }
+        observersActive = false
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

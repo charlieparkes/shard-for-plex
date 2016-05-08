@@ -8,12 +8,14 @@ import UIKit
 class OnDeckViewController: UIViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        showActivityIndicatory(self.view)
+        
         loadObservers()
-        //menuButton.enabled = false
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -27,6 +29,33 @@ class OnDeckViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func showActivityIndicatory(uiView: UIView) {
+        let container: UIView = UIView()
+        container.frame = uiView.frame
+        container.center = uiView.center
+        //container.backgroundColor = UIColorFromHex(0xffffff, alpha: 0.3)
+        container.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.3)
+        
+        let loadingView: UIView = UIView()
+        loadingView.frame = CGRectMake(0, 0, 80, 80)
+        loadingView.center = uiView.center
+        //loadingView.backgroundColor = UIColorFromHex(0x444444, alpha: 0.7)
+        container.backgroundColor = UIColor(red: 68, green: 68, blue: 68, alpha: 0.7)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        //let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+        actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.WhiteLarge
+        actInd.center = CGPointMake(loadingView.frame.size.width / 2,
+                                    loadingView.frame.size.height / 2);
+        loadingView.addSubview(actInd)
+        container.addSubview(loadingView)
+        uiView.addSubview(container)
+        actInd.startAnimating()
+    }
+    
     func loadObservers() {
         libraries.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
     }
@@ -34,8 +63,10 @@ class OnDeckViewController: UIViewController {
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
         if(libraries.foundResults == true) {
+            
             //menuButton.enabled = true
         }
+        
     }
     
     deinit {

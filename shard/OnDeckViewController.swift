@@ -11,6 +11,8 @@ class OnDeckViewController: UIViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    var refreshControl = UIRefreshControl()
+    
     let container: UIView = UIView()
     let loadingView: UIView = UIView()
     let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -62,20 +64,15 @@ class OnDeckViewController: UIViewController {
     }
     
     func loadObservers() {
-        libraries.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        //libraries.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
-        if(libraries.foundResults == true) {
-            
-            //menuButton.enabled = true
-        }
-        
     }
     
     deinit {
-        libraries.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        //libraries.removeObserver(self, forKeyPath: "foundResults", context: nil)
     }
 
     /*

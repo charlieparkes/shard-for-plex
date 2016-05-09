@@ -23,6 +23,7 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
     }
     
     func getLibrary() {
+        refreshControl.endRefreshing()
         showActivityIndicatory(self.view)
         media.get(server, library: library)
     }
@@ -124,7 +125,6 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         } else if keyPath == "foundResults" && media.foundResults == true {
             
             self.reloadCollection()
-            self.refreshControl.endRefreshing()
             self.hideActivityIndicator()
             
         } else if keyPath == "imageDownloadComplete" {

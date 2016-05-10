@@ -8,6 +8,10 @@ import UIKit
 class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var coverImage: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var ageRatingLabel: UILabel!
+    @IBOutlet weak var reviewRatingLabel: UILabel!
     //@IBOutlet weak var scrollView: UIScrollView!
     //@IBOutlet weak var coverImage: UIImageView!
     //@IBOutlet weak var movieTitle: UILabel!
@@ -56,6 +60,10 @@ class MovieDetailViewController: UIViewController {
         */
         //movieTitle.text = media.title
         coverImage.image = UIImage(data: media.coverData.data)
+        titleLabel.text = media.title
+        yearLabel.text = media.year
+        ageRatingLabel.text = media.contentRating
+        reviewRatingLabel.text = media.rating + "/10"
  
     }
 

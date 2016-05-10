@@ -33,6 +33,8 @@
 		0FD26A431CDBBB1700724122 /* OnDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A421CDBBB1700724122 /* OnDeckViewController.swift */; };
 		0FD26A451CDBC15000724122 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A441CDBC15000724122 /* Library.swift */; };
 		0FD26A471CDBC16C00724122 /* LibraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD26A461CDBC16B00724122 /* LibraryRepository.swift */; };
+		0FD535EA1CE183E4007965F1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD535E91CE183E4007965F1 /* Player.swift */; };
+		0FD535EC1CE1843B007965F1 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD535EB1CE1843B007965F1 /* PlayerViewController.swift */; };
 		0FDDC1401CDFE18E00F2AB86 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDDC13F1CDFE18E00F2AB86 /* MovieDetailViewController.swift */; };
 		0FE0DBE41CDCF12000067318 /* MediaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE0DBE31CDCF12000067318 /* MediaRepository.swift */; };
 /* End PBXBuildFile section */
@@ -68,6 +70,8 @@
 		0FD26A421CDBBB1700724122 /* OnDeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeckViewController.swift; sourceTree = "<group>"; };
 		0FD26A441CDBC15000724122 /* Library.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
 		0FD26A461CDBC16B00724122 /* LibraryRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryRepository.swift; sourceTree = "<group>"; };
+		0FD535E91CE183E4007965F1 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		0FD535EB1CE1843B007965F1 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		0FDDC13F1CDFE18E00F2AB86 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		0FE0DBE31CDCF12000067318 /* MediaRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +102,7 @@
 		0F27FA8D1CDC4D5F008AF441 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				0FD535E91CE183E4007965F1 /* Player.swift */,
 				0F0D125F1CDBA6CC0013B494 /* shard-Bridging-Header.h */,
 				0F27FA8E1CDC4D82008AF441 /* SWReveal */,
 			);
@@ -137,6 +142,7 @@
 				0FD26A3B1CDBAD8F00724122 /* MovieLibraryCollectionViewController.swift */,
 				0F092BA81CDD84CF002CF0E1 /* VideoCell.swift */,
 				0FDDC13F1CDFE18E00F2AB86 /* MovieDetailViewController.swift */,
+				0FD535EB1CE1843B007965F1 /* PlayerViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -278,10 +284,12 @@
 				0FD26A411CDBB04F00724122 /* LibraryCell.swift in Sources */,
 				0FD26A471CDBC16C00724122 /* LibraryRepository.swift in Sources */,
 				0F1D34441CDE621600C82CA7 /* MediaImageData.swift in Sources */,
+				0FD535EC1CE1843B007965F1 /* PlayerViewController.swift in Sources */,
 				0F332CE81CC6A66200D6452C /* User.swift in Sources */,
 				0F26CD6D1CD847D0001078C6 /* Constants.swift in Sources */,
 				0FD26A3A1CDBAC7200724122 /* NavigationTableViewController.swift in Sources */,
 				0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */,
+				0FD535EA1CE183E4007965F1 /* Player.swift in Sources */,
 				0F27FA901CDC4FD9008AF441 /* MovieMedia.swift in Sources */,
 				0FE0DBE41CDCF12000067318 /* MediaRepository.swift in Sources */,
 				0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */,

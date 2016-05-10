@@ -3,11 +3,6 @@
  This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
  */
 
-/*
- Shard by Charlie Mathews & Sarah Burgess
- This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
- */
-
 //https://forums.plex.tv/discussion/40688/retrieving-a-plex-media-servers-x-plex-token-using-the-myplex-api
 
 import Foundation

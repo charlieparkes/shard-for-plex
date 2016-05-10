@@ -46,7 +46,7 @@ class OnDeckRepository : MediaRepository {
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
         let url = "\(servers.results[server].getURL())\(Constants.WEB_API.ondeck)"
-        print("\n\(url)")
+        print("\nGET \(url)")
         
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         
@@ -123,7 +123,7 @@ class OnDeckRepository : MediaRepository {
     
     override func parserDidEndDocument(parser: NSXMLParser) {
         if results.count > 0 {
-            print("found \(results.count) in \(servers.results[servers.selectedServer].name) -> On Deck")
+            print("Found \(results.count) in \(servers.results[servers.selectedServer].name) -> On Deck")
             
             foundResults = true
         }

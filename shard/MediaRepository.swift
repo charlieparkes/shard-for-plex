@@ -80,7 +80,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
         let url = "\(servers.results[server].getURL())\(Constants.WEB_API.sections)/\(libraries.results[library].key)/all"
-        print("\n\(url)")
+        print("\nGET \(url)")
         
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
         

@@ -96,9 +96,9 @@ class LibraryRepository : NSObject, SelfPopulatingRepository {
         //print(config.HTTPAdditionalHeaders)
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
-        
-        let request = NSMutableURLRequest(URL: NSURL(string: "\(servers.results[server].getURL())\(Constants.WEB_API.sections)")!)
-        //let request = NSMutableURLRequest(URL: NSURL(string: "\(Constants.PLEX_API.sections)")!)
+        let url = "\(servers.results[server].getURL())\(Constants.WEB_API.sections)"
+        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+        print("\nGET \(url)")
         request.HTTPMethod = "GET"
         let task = session.downloadTaskWithRequest(request)
         task.resume()

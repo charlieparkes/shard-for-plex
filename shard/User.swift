@@ -92,6 +92,9 @@ final class User : NSObject, NSURLSessionDelegate, NSURLSessionDownloadDelegate 
         
         let request = NSMutableURLRequest(URL: NSURL(string: Constants.PLEX_API.signin)!)
         request.HTTPMethod = "POST"
+        
+        print("\nPOST \(Constants.PLEX_API.signin)")
+        
         let task = session.downloadTaskWithRequest(request)
         task.resume()
     }

@@ -54,6 +54,10 @@ class OnDeckViewController: UIViewController {
         
         if servers.foundResults == false || servers.queryInProgress == true {
             servers.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        } else if servers.foundResults == true && servers.results.count > 0 {
+            server = servers.results[servers.selectedServer].name
+            media.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+            media.get()
         }
         
         if self.revealViewController() != nil {

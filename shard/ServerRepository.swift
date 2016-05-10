@@ -87,6 +87,8 @@ final class ServerRepository : NSObject, SelfPopulatingRepository {
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
         let request = NSMutableURLRequest(URL: NSURL(string: Constants.PLEX_API.servers)!)
+        
+        print("\nGET \(Constants.PLEX_API.servers)")
         request.HTTPMethod = "GET"
         let task = session.downloadTaskWithRequest(request)
         task.resume()

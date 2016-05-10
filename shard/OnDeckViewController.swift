@@ -7,12 +7,13 @@
 
 import UIKit
 
-class OnDeckViewController: UIViewController {
+class OnDeckViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     let media : OnDeckRepository = OnDeckRepository()
     var server : String = ""
-    
-    @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var refreshControl = UIRefreshControl()
     
@@ -52,6 +53,9 @@ class OnDeckViewController: UIViewController {
         
         showActivityIndicatory(self.view)
         
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
         if servers.foundResults == false || servers.queryInProgress == true {
             servers.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
         } else if servers.foundResults == true && servers.results.count > 0 {
@@ -87,7 +91,15 @@ class OnDeckViewController: UIViewController {
                 media.get()
             } else if server != "" && media.foundResults == true && media.results.count > 0 {
                 hideActivityIndicator()
+                reloadCollection()
             }
+        } else if keyPath == "imageDownloadComplete" {
+            
+            let target = object as! MediaImageData
+            
+            let path = NSIndexPath(forItem: target.item, inSection: 0)
+            collectionView.reloadItemsAtIndexPaths([path])
+            object?.removeObserver(self, forKeyPath: "imageDownloadComplete")
         }
     }
     
@@ -97,16 +109,118 @@ class OnDeckViewController: UIViewController {
         } else {
             media.removeObserver(self, forKeyPath: "foundResults", context: nil)
         }
+        
+        for r in media.results {
+            if r.coverData.downloadInProgress == true {
+                r.coverData.task!.cancel()
+                r.coverData.removeObserver(self, forKeyPath: "imageDownloadComplete")
+            }
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return media.results.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("OnDeckCell", forIndexPath: indexPath) as! VideoCell
+        
+        if(media.results[indexPath.item].coverData.data != NSData()) {
+            cell.cover.image = UIImage(data: media.results[indexPath.item].coverData.data)!
+        } else {
+            cell.cover.image = UIImage(named: "movie_cover")
+        }
+        
+        return cell
+    }
+    
+    //override func collectionView
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate == false {
+            loadVisibleMediaImages()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        loadVisibleMediaImages()
+    }
+    
+    func loadVisibleMediaImages() {
+        if let indicies : [NSIndexPath] = collectionView.indexPathsForVisibleItems() {
+            for i in indicies {
+                if media.results[i.item].coverData.imageDownloadComplete == false && media.results[i.item].coverData.downloadInProgress == false {
+                    loadImage(i.item)
+                }
+            }
+        }
+    }
+    
+    func reloadCollection() {
+        collectionView.reloadData()
+        collectionView.reloadSections(NSIndexSet(index: 0))
+        loadVisibleMediaImages()
+    }
+    
+    
+    func loadImage(index : Int) {
+        if(media.results.count > index) {
+            let base = servers.results[servers.selectedServer].getURL()
+            
+            if true {//media.type == "movie" {
+                let m = media.results[index] as! Movie
+                
+                if(m.thumb == "") {
+                    print("no thumb for the movie...")
+                    return
+                }
+                
+                var url = base
+                url += "/photo/:/transcode?url=" //path-to-image&width=50&height=50
+                url += m.thumb
+                url += "&width=180&height=270"
+                
+                if let checkedURL = NSURL(string: url) {
+                    media.results[index].coverData.item = index
+                    media.results[index].coverData.addObserver(self, forKeyPath: "imageDownloadComplete", options: Constants.KVO_Options, context: nil)
+                    media.results[index].coverData.get(checkedURL)
+                    
+                    /*
+                     getDataFromUrl(checkedURL) { (data, response, error)  in
+                     dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                     guard let d = data where error == nil else { return }
+                     media.results[index].coverData = d
+                     print(d)
+                     let path = NSIndexPath(forItem: index, inSection: 0)
+                     print("Image \(index) loaded for \(m.title)")
+                     self.collectionView!.reloadItemsAtIndexPaths([path])
+                     }
+                     }
+                     */
+                }
+            }
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "showMovie" {
+            let backItem = UIBarButtonItem()
+            backItem.title = "On Deck"
+            navigationItem.backBarButtonItem = backItem
+            
+            let dest = segue.destinationViewController as! MovieDetailViewController
+            
+            let cell = sender as! UICollectionViewCell
+            let indexPath = collectionView!.indexPathForCell(cell)
+            dest.media = media.results[indexPath!.item] as! Movie
+        }
+        
     }
-    */
 
 }

@@ -454,8 +454,50 @@
                                     <rect key="frame" x="0.0" y="64" width="600" height="166"/>
                                 </variation>
                             </scrollView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fEW-Eh-Z4b">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" red="0.047058823529411764" green="0.11372549019607843" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pzi-4o-RbP">
+                                    <size key="itemSize" width="180" height="270"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OnDeckCell" id="Gyp-TN-Uvz" customClass="VideoCell" customModule="shard" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="64" width="180" height="270"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="180" height="270"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ecf-lG-2LM">
+                                                    <rect key="frame" x="0.0" y="0.0" width="180" height="270"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="Ecf-lG-2LM" firstAttribute="top" secondItem="Gyp-TN-Uvz" secondAttribute="topMargin" constant="-8" id="4Jx-Rh-5uH"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="Ecf-lG-2LM" secondAttribute="bottom" constant="-8" id="7hY-yf-sk2"/>
+                                            <constraint firstItem="Ecf-lG-2LM" firstAttribute="leading" secondItem="Gyp-TN-Uvz" secondAttribute="leadingMargin" constant="-8" id="M0M-jA-XIt"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="Ecf-lG-2LM" secondAttribute="trailing" constant="-8" id="eRW-o4-6xS"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="cover" destination="Ecf-lG-2LM" id="e1a-cf-a6L"/>
+                                            <segue destination="g5C-jv-fDB" kind="show" identifier="showMovie" id="ZNZ-4s-fo5"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="0.047058823529411764" green="0.11372549019607843" blue="0.16862745098039217" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="fEW-Eh-Z4b" firstAttribute="leading" secondItem="wuL-Sc-lVC" secondAttribute="leadingMargin" constant="-20" id="2F0-pj-RlF"/>
+                            <constraint firstItem="BNV-UV-wGl" firstAttribute="top" secondItem="fEW-Eh-Z4b" secondAttribute="bottom" id="T4C-Vb-AcP"/>
+                            <constraint firstItem="fEW-Eh-Z4b" firstAttribute="top" secondItem="ssl-Vj-Se5" secondAttribute="bottom" id="jRC-6L-SoG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fEW-Eh-Z4b" secondAttribute="trailing" constant="-20" id="xLs-hO-N1R"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="090-Ur-7X3"/>
@@ -471,6 +513,7 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" id="a4U-3x-MUQ"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="fEW-Eh-Z4b" id="jIH-7w-agc"/>
                         <outlet property="menuButton" destination="a4U-3x-MUQ" id="Cax-dj-Jl5"/>
                     </connections>
                 </viewController>
@@ -645,5 +688,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sgP-Rb-YDY"/>
+        <segue reference="ZNZ-4s-fo5"/>
     </inferredMetricsTieBreakers>
 </document>

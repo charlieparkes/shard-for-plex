@@ -183,7 +183,7 @@ class OnDeckViewController: UIViewController, UICollectionViewDelegate, UICollec
                 var url = base
                 url += "/photo/:/transcode?url=" //path-to-image&width=50&height=50
                 url += m.thumb
-                url += "&width=180&height=270"
+                url += "&width=200&height=300"
                 
                 if let checkedURL = NSURL(string: url) {
                     media.results[index].coverData.item = index

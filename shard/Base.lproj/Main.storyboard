@@ -436,7 +436,7 @@
             </objects>
             <point key="canvasLocation" x="1711" y="-326"/>
         </scene>
-        <!--On Deck View Controller-->
+        <!--On Deck-->
         <scene sceneID="zNa-HE-qQg">
             <objects>
                 <viewController id="dJ4-0I-Yzd" customClass="OnDeckViewController" customModule="shard" customModuleProvider="target" sceneMemberID="viewController">
@@ -509,7 +509,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="7Gz-AU-QwH">
+                    <navigationItem key="navigationItem" title="On Deck" id="7Gz-AU-QwH">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="a4U-3x-MUQ"/>
                     </navigationItem>
                     <connections>
@@ -537,7 +537,7 @@
             </objects>
             <point key="canvasLocation" x="1711" y="442"/>
         </scene>
-        <!--Movie Library Collection View Controller-->
+        <!--{library view}-->
         <scene sceneID="ZP7-UR-aow">
             <objects>
                 <collectionViewController id="Jso-fE-zMU" customClass="MovieLibraryCollectionViewController" customModule="shard" customModuleProvider="target" sceneMemberID="viewController">
@@ -605,7 +605,7 @@
                             <outlet property="delegate" destination="Jso-fE-zMU" id="5rQ-4m-UBD"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="rlG-YO-UoL">
+                    <navigationItem key="navigationItem" title="{library view}" id="rlG-YO-UoL">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="RFM-Lg-3ue"/>
                     </navigationItem>
                     <connections>

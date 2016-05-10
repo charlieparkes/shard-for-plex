@@ -92,6 +92,7 @@ class MovieLibraryCollectionViewController: UICollectionViewController {
         }
         
         getLibrary()
+        navigationController!.navigationBar.topItem?.title = libraries.results[libraries.selectedLibrary].title
     }
     
     override func viewDidAppear(animated: Bool) {

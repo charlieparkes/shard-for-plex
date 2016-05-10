@@ -3,18 +3,22 @@
  This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
  */
 
+//https://github.com/mjs7231/python-plexapi/wiki/Unofficial-Plex-API-Documentation
+//https://github.com/Arcanemagus/plex-api/wiki/Plex-Web-API-Overview
+//https://github.com/plexinc/plex-media-player
+
+
 import Foundation
 import UIKit
 
 let user = User.sharedInstance
 let servers = ServerRepository.sharedInstance
 let libraries = LibraryRepository.sharedInstance
-//let media = MediaRepository.sharedInstance
 
 struct Constants {
     
     static let product = "Shard"
-    static let version = "0.1"
+    static let version = "ALPHA 0.1"
     static let systemVersion = UIDevice.currentDevice().systemVersion
     static let model = UIDevice.currentDevice().model
     static let name = UIDevice.currentDevice().name
@@ -28,6 +32,7 @@ struct Constants {
     
     struct WEB_API {
         static let sections : String = "/library/sections"
+        static let ondeck : String = "/library/onDeck"
     }
     
     struct Defaults {

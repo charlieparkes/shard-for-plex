@@ -3,58 +3,24 @@
  This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
  */
 
+/*
+ Shard by Charlie Mathews & Sarah Burgess
+ This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License
+ */
+
 //https://forums.plex.tv/discussion/40688/retrieving-a-plex-media-servers-x-plex-token-using-the-myplex-api
 
 import Foundation
 
-class MediaRepository : NSObject, SelfPopulatingRepository {
+class OnDeckRepository : MediaRepository {
     
-    //static var sharedInstance : MediaRepository = MediaRepository()
-    
-    var observersLoaded : Bool = false
-    var queryInProgress = false
-    dynamic var foundResults = false
-    var libraryIndex : Int = 0
-    var parser : NSXMLParser = NSXMLParser()
-    var results : [Media] = []
-    var type : String = ""
-    
-    dynamic var deinitCanary = false
-    
-    override init() {
-        super.init()
-        loadObservers()
+    func get() {
+        get(0, library: 0)
     }
-    
-    func clear() {
-        removeObservers()
-        queryInProgress = false
-        foundResults = false
-        libraryIndex = 0
-        parser = NSXMLParser()
-        results = []
-        type = ""
-    }
-    
-    func loadObservers() {
-    }
-    
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
-        //print("ServerRepository: I sense that value of \(keyPath) changed to \(change![NSKeyValueChangeNewKey]!)")
-    }
-    
-    func removeObservers() {
-        
-    }
-    
-    deinit {
-        deinitCanary = true
-    }
-    
-    func get(server : Int, library : Int) {
-        
-        if(user.loggedin == false || user.authentication_token == "" || servers.results.count == 0 || libraries.results.count == 0) {
+
+    override func get(server: Int, library: Int) {
+            
+        if(user.loggedin == false || user.authentication_token == "" || servers.results.count == 0) {
             print("Tried to get movies, but there were no servers to query.")
             return
         }
@@ -62,7 +28,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
         foundResults = false
         queryInProgress = true
         libraryIndex = library
-        type = libraries.results[library].type
+        type = "ondeck"
         
         let config = NSURLSessionConfiguration.defaultSessionConfiguration()
         
@@ -79,7 +45,7 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
         
         let session = NSURLSession(configuration: config, delegate: self, delegateQueue: nil)
         
-        let url = "\(servers.results[server].getURL())\(Constants.WEB_API.sections)/\(libraries.results[library].key)/all"
+        let url = "\(servers.results[server].getURL())\(Constants.WEB_API.ondeck)"
         print("\n\(url)")
         
         let request = NSMutableURLRequest(URL: NSURL(string: url)!)
@@ -89,37 +55,25 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
         task.resume()
     }
     
-    // Download in progress.
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-    }
-    
-    // Download complete with error.
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        if(error != nil) {
-            print("DEBUG: download completed with error")
-        }
-    }
-    
-    // Download complete.
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+    override func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
         
         let data = NSData(contentsOfURL: location)!
         NSOperationQueue.mainQueue().addOperationWithBlock({
-            print("Processing response...", separator: "", terminator: "")
             self.processResponse(data)
         })
     }
     
-    func processResponse(data : NSData) {
+    override func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
         
-        results = []
-        parser = NSXMLParser(data: data)
-        parser.delegate = self
-        parser.parse()
-    }
-    
-    func parser(parser: NSXMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
-
+        for (k,v) in attributeDict {
+            if k == "type" {
+                if v.containsString("movie") {
+                    type = "movie"
+                } else if v.containsString("episode") {
+                    type = "episode"
+                }
+            }
+        }
         
         if type == "movie" {
             
@@ -159,22 +113,17 @@ class MediaRepository : NSObject, SelfPopulatingRepository {
                 (results.last! as! Movie).media.last!.parts.append(part)
             }
             
-        } else if type == "show" {
-
-        } else if type == "artist" {
+        } else if type == "episode" {
+            
             
         } else {
             // type unknown
         }
     }
     
-    func parser(parser: NSXMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        
-    }
-    
-    func parserDidEndDocument(parser: NSXMLParser) {
+    override func parserDidEndDocument(parser: NSXMLParser) {
         if results.count > 0 {
-            print("Found \(results.count) \(type)s in \(servers.results[servers.selectedServer].name) -> \(libraries.results[libraryIndex].title)")
+            print("found \(results.count) in \(servers.results[servers.selectedServer].name) -> On Deck")
             
             foundResults = true
         }

@@ -7,29 +7,29 @@
 
 import UIKit
 
-class PlayerViewController: UIViewController, PlayerDelegate {
+class PlayerViewController: Player {//UIViewController, PlayerDelegate {
     
-    let player : Player = Player()
-    var url = ""
+    //let player : Player = Player()
+    var streamingURL = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        player.delegate = self
-        player.view.frame = self.view.bounds
+        //player.delegate = self
+        //player.view.frame = self.view.bounds
         
-        self.addChildViewController(self.player)
-        self.view.addSubview(self.player.view)
-        self.player.didMoveToParentViewController(self)
+        //self.addChildViewController(self.player)
+        //self.view.addSubview(self.player.view)
+        //self.player.didMoveToParentViewController(self)
     }
     
     func startPlayer() {
-        let videoURL: NSURL = NSURL(fileURLWithPath: url)
-        player.setUrl(videoURL)
+        let videoURL: NSURL = NSURL(fileURLWithPath: streamingURL)
+        self.setUrl(videoURL)
         
         //player.fillMode = "AVLayerVideoGravityResizeAspect"
         
-        player.playFromBeginning()
+        self.playFromBeginning()
     }
 
     override func didReceiveMemoryWarning() {

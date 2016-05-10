@@ -9,6 +9,9 @@ import UIKit
 
 class OnDeckViewController: UIViewController {
     
+    let media : OnDeckRepository = OnDeckRepository()
+    var server : String = ""
+    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var refreshControl = UIRefreshControl()
@@ -49,7 +52,9 @@ class OnDeckViewController: UIViewController {
         
         showActivityIndicatory(self.view)
         
-        loadObservers()
+        if servers.foundResults == false || servers.queryInProgress == true {
+            servers.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        }
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -64,15 +69,30 @@ class OnDeckViewController: UIViewController {
     }
     
     func loadObservers() {
-        //libraries.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        //servers.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+        //media.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
     }
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
+        if keyPath == "foundResults" {
+            if server == "" && servers.foundResults == true && servers.results.count > 0 {
+                server = servers.results[servers.selectedServer].name
+                servers.removeObserver(self, forKeyPath: "foundResults", context: nil)
+                media.addObserver(self, forKeyPath: "foundResults", options: Constants.KVO_Options, context: nil)
+                media.get()
+            } else if server != "" && media.foundResults == true && media.results.count > 0 {
+                hideActivityIndicator()
+            }
+        }
     }
     
     deinit {
-        //libraries.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        if server == "" {
+            servers.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        } else {
+            media.removeObserver(self, forKeyPath: "foundResults", context: nil)
+        }
     }
 
     /*

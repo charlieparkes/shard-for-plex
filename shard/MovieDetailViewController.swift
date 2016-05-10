@@ -141,8 +141,8 @@ class MovieDetailViewController: UIViewController {
                     let dest = segue.destinationViewController as! PlayerViewController
                 
                     print(url)
-                    dest.url = url
-                    dest.url = "http://73.210.156.39:80/video/:/transcode/universal/start.m3u8?X-Plex-Platform=Chrome&copyts=1&offset=0&path=%2Flibrary%2Fmetadata%2F20736&mediaIndex=0&videoResolution=800x600&X-Plex-Token=QY3QtYxw1qq11j5wxTZ6"
+                    dest.streamingURL = url
+                    dest.streamingURL = "http://73.210.156.39:80/video/:/transcode/universal/start.m3u8?X-Plex-Platform=Chrome&copyts=1&offset=0&path=%2Flibrary%2Fmetadata%2F20736&mediaIndex=0&videoResolution=800x600&X-Plex-Token=QY3QtYxw1qq11j5wxTZ6"
                     dest.startPlayer()
                     
                 }

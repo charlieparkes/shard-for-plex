@@ -37,6 +37,7 @@
 		0FD535EC1CE1843B007965F1 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD535EB1CE1843B007965F1 /* PlayerViewController.swift */; };
 		0FDDC1401CDFE18E00F2AB86 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDDC13F1CDFE18E00F2AB86 /* MovieDetailViewController.swift */; };
 		0FE0DBE41CDCF12000067318 /* MediaRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE0DBE31CDCF12000067318 /* MediaRepository.swift */; };
+		0FEED5C91CE23B55003D9AE8 /* OnDeckRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FEED5C81CE23B55003D9AE8 /* OnDeckRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		0FD535EB1CE1843B007965F1 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		0FDDC13F1CDFE18E00F2AB86 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		0FE0DBE31CDCF12000067318 /* MediaRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaRepository.swift; sourceTree = "<group>"; };
+		0FEED5C81CE23B55003D9AE8 /* OnDeckRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDeckRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				0FD26A441CDBC15000724122 /* Library.swift */,
 				0FD26A461CDBC16B00724122 /* LibraryRepository.swift */,
 				0FE0DBE31CDCF12000067318 /* MediaRepository.swift */,
+				0FEED5C81CE23B55003D9AE8 /* OnDeckRepository.swift */,
 				0F1D138B1CDD0DFD0039EFB7 /* Media Types */,
 			);
 			name = Model;
@@ -291,6 +294,7 @@
 				0F0D12621CDBA6CD0013B494 /* SWRevealViewController.m in Sources */,
 				0FD535EA1CE183E4007965F1 /* Player.swift in Sources */,
 				0F27FA901CDC4FD9008AF441 /* MovieMedia.swift in Sources */,
+				0FEED5C91CE23B55003D9AE8 /* OnDeckRepository.swift in Sources */,
 				0FE0DBE41CDCF12000067318 /* MediaRepository.swift in Sources */,
 				0F26CD6B1CD846A3001078C6 /* ServerRepository.swift in Sources */,
 				0FA6690D1CDC3F3900C9527C /* ButtonCell.swift in Sources */,
